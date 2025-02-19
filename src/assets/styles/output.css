@@ -608,17 +608,9 @@
   .resize {
     resize: both;
   }
-  .truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
-  }
-  .bg-blue-500 {
-    background-color: var(--color-blue-500);
   }
   .text-3xl {
     font-size: var(--text-3xl);
@@ -627,6 +619,9 @@
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
+  }
+  .text-red-700 {
+    color: var(--color-red-700);
   }
   .lowercase {
     text-transform: lowercase;

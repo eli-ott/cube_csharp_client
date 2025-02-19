@@ -13,6 +13,8 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
@@ -22,9 +24,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"cross-env PORT=3000  react-scripts start\" \"npx @tailwindcss/cli -i ./src/assets/styles/index.css -o ./src/assets/styles/output.css --watch\"",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "base-start": "react-scripts start",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

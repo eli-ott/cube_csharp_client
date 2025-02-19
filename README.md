@@ -124,6 +124,5 @@ Ce dossier contient **des fonctions réutilisables** qui n'ont aucun lien avec R
 
 ## </> Commandes 
 1. **Télécharger les dépendances** `npm install`
-2. **Lancer le projet** `npm start`
-3. **Hot reload tailwind** `npx @tailwindcss/cli -i ./src/assets/styles/index.css -o ./src/assets/styles/output.css --watch`
-4. **Build le projet (ne pas faire avant d'envoyer en prod)** `npm build`
+2. **Lancer le projet et activer hot reload tailwind** `npm start`
+3. **Build le projet (ne pas faire avant d'envoyer en prod)** `npm build`
