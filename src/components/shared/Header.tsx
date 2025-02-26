@@ -1,0 +1,57 @@
+import IconButton from "../common/sharedcommon/IconButton";
+import SearchBar from "../common/sharedcommon/SearchBar";
+import logo from "../../assets/images/layouts/logo_large.svg";
+import NavMenu from "../common/sharedcommon/NavMenu";
+import { useState } from "react";
+
+const Header: React.FC = () => {
+  const [isOpened,setIsOpened] = useState<boolean>(false);
+  const handleOpening = () => {
+    setIsOpened(true);
+  }
+  return (
+    <>
+      <header className="w-full h-[130px] bg-[#6A1B1A] sticky top-0 flex flex-col items-center pb-[4px] box-border">
+        {/* Barre supérieure : icônes + logo */}
+        <div className="w-full flex items-center justify-between py-2">
+          {/* Menu Icon */}
+          <div className="w-1/3 flex items-center ">
+            <IconButton
+              iconName="menu.svg"
+              iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px] cursor-pointer"
+              onClick={handleOpening}
+            />
+          </div>
+
+          {/* Logo */}
+          <div className="w-1/3 flex justify-center items-center">
+            <img className="h-[40px] md:h-[50px]" src={logo} alt="Logo" />
+          </div>
+
+          {/* User & Cart Icons */}
+          <div className="w-1/3 flex justify-end items-center space-x-4 pr-[4px]">
+            <IconButton
+              iconName="account.svg"
+              iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px]"
+              onClick={() => console.log("user profile")}
+            />
+            <IconButton
+              iconName="cart.svg"
+              iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px] cart-counter"
+              onClick={() => console.log("cart opened")}
+            />
+          </div>
+        </div>
+
+        {/* Barre inférieure : SearchBar */}
+        <div className="flex justify-center items-center w-full px-4 pb-2">
+          <SearchBar />
+        </div>
+      </header>
+
+      <NavMenu isOpenedMenu={isOpened} setIsOpenedMenu={setIsOpened} />
+    </>
+  );
+};
+
+export default Header;
