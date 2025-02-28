@@ -1,42 +1,36 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 interface IPasswordVerificator {
   password: string;
   passwordConfirm: string;
+  strength: number;
 }
 
 const PasswordVerificator: React.FC<IPasswordVerificator> = ({
   password,
   passwordConfirm,
+  strength,
 }) => {
-  let strength = 0;
+  const totalConditions = 6; 
 
-  useEffect(() => {
-    if (password.length === 0) strength = 0;
-
-
-  }, [password, passwordConfirm]);
-
-  const fillColor =
-    strength === 4
-      ? "bg-green-500"
-      : strength === 3
-      ? "bg-orange-500"
-      : strength >= 1
-      ? "bg-red-400"
-      : "bg-gray-300";
+  const fillColor = (strength: number) => {
+    if (strength >= totalConditions) return "bg-green-500";
+    if (strength === totalConditions - 1) return "bg-orange-500";
+    if (strength > 0) return "bg-red-400";
+    return "bg-gray-300";
+  };
 
   return (
-    <div className="w-full max-w-sm">
+    <div className="w-full max-w-2xl">
       <div className="flex">
-        {[0, 1, 2, 3].map((barIndex) => (
+        {[...Array(totalConditions)].map((_, barIndex) => (
           <div
             key={barIndex}
             className={`
               flex-1 h-2
-              ${barIndex < strength ? fillColor : "bg-gray-300"}
+              ${barIndex < strength ? fillColor(strength) : "bg-gray-300"}
               ${barIndex === 0 ? "rounded-l" : ""}
-              ${barIndex === 3 ? "rounded-r" : ""}
+              ${barIndex === totalConditions - 1 ? "rounded-r" : ""}
               ${barIndex !== 0 ? "border-l border-gray-200" : ""}
             `}
           />

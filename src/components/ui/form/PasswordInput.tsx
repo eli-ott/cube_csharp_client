@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface IPasswordInput {
   placeholder: string;
@@ -15,7 +15,7 @@ const PasswordInput: React.FC<IPasswordInput> = ({
   const [passwordShowing, setPasswordShowing] = useState<boolean>(false);
 
   return (
-    <div className="relative w-9/10 max-w-sm md:max-w-md lg:max-w-lg ">
+    <div className="relative w-full max-w-2xl  ">
       {/* Icône positionnée dans l'input */}
       <div className="absolute inset-y-0 left-3 flex items-center">
         <img
@@ -28,7 +28,7 @@ const PasswordInput: React.FC<IPasswordInput> = ({
 
       {/* Champ de texte */}
       <input
-        className={`w-full h-10 sm:h-12 rounded-lg outline-none shadow-md border border-gray-300 
+        className={`w-full h-10 sm:h-12 rounded-lg outline-none shadow-md border border-gray-300 bg-[#f8f4e3]
           text-gray-700 text-base sm:text-lg focus:ring-2 focus:ring-gray-400 transition-all
      pl-12 sm:pl-14 pr-12 sm:pr-14`}
         type={passwordShowing ? "text" : "password"}
@@ -37,6 +37,7 @@ const PasswordInput: React.FC<IPasswordInput> = ({
         placeholder={placeholder}
       />
       <button
+      type="button"
         onClick={() => setPasswordShowing(!passwordShowing)}
         className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
       >

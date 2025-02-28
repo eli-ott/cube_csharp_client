@@ -3,17 +3,15 @@ import Header from "../../shared/Header";
 import Footer from "../../shared/Footer";
 
 interface DefaultLayoutProps {
-    children:ReactNode;
+  children: ReactNode;
 }
 
 const DefaultLayout: FC<DefaultLayoutProps> = ({ children }) => {
   return (
     <>
-    <Header/>
-      <main>
-        {children}
-      </main>
-      <Footer/>
+      <Header />
+      {children}
+      <Footer />
     </>
   );
 };
