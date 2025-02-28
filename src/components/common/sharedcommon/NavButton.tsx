@@ -13,7 +13,7 @@ const NavButton: React.FC<INavButton> = ({ icon, text, destination }) => {
 
   useEffect(() => {
     if (icon) {
-      import(`../../../assets/icons/nav_${icon}.svg`)
+      import(`../../../assets/icons/nav_icons/nav_${icon}.svg`)
         .then((module) => setIconSrc(module.default))
         .catch((error) => console.error("Error loading icon:", error));
     }
@@ -38,7 +38,7 @@ const NavButton: React.FC<INavButton> = ({ icon, text, destination }) => {
       )}
       <span className={`w-full text-left ${icon ? "pl-4" : "pl-0"} text-sm sm:text-md md:text-lg xl:text-xl`}>{text}</span> 
       <img
-        src={require("../../../assets/icons/nav_chevron_right.svg").default}
+        src={require("../../../assets/icons/nav_icons/nav_chevron_right.svg").default}
         alt="chevron"
         title="chevron"
         className="w-10 h-10 sm:w-8 sm:h-8 "

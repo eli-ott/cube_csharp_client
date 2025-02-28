@@ -3,7 +3,7 @@ import { FC, useState, useEffect } from "react";
 interface IIconButton {
   iconName: string;
   iconSize?: string;
-  onClick?: () => void; // renommé ici
+  onClick?: () => void;
 }
 
 const IconButton: FC<IIconButton> = ({ iconName, iconSize = "w-10", onClick }) => {
