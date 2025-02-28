@@ -12,7 +12,7 @@ const TextInput: React.FC<ITextInput> = ({ placeholder, icon, typed, onTyping })
 
   useEffect(() => {
     if (icon) {
-      import(`../../../assets/icons/form_${icon}.svg`)
+      import(`../../../assets/icons/form_icons/form_${icon}.svg`)
         .then((module) => setIconSrc(module.default))
         .catch((error) => console.error("Erreur de chargement de l'icône:", error));
     }

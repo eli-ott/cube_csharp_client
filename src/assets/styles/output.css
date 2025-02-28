@@ -1001,12 +1001,6 @@
   .bg-white {
     background-color: var(--color-white);
   }
-  .bg-white\/50 {
-    background-color: color-mix(in oklab, var(--color-white) 50%, transparent);
-  }
-  .bg-white\/75 {
-    background-color: color-mix(in oklab, var(--color-white) 75%, transparent);
-  }
   .p-0 {
     padding: calc(var(--spacing) * 0);
   }

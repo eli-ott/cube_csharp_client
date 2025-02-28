@@ -23,7 +23,7 @@ const SubmitButton: React.FC<ISubmitButton> = ({
     >
       {text}
       <img
-        src={require(`../../../assets/icons/form_${iconType ? iconType : "next"}.svg`)}
+        src={require(`../../../assets/icons/form_icons/form_${iconType ? iconType : "next"}.svg`)}
         alt="Icone"
         title="Icone"
         className="ml-2 h-6 w-6 sm:w-8 sm:h-8"

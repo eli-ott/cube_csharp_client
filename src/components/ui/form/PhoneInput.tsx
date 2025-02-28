@@ -12,7 +12,7 @@ const PhoneInput : React.FC<IPhoneInput> = ({placeholder, typed, onTyping}) => {
           {/* Icône positionnée dans l'input */}
           <div className="absolute inset-y-0 left-3 flex items-center">
             <img
-              src={require("../../../assets/icons/form_phone.svg").default}
+              src={require("../../../assets/icons/form_icons/form_phone.svg").default}
               alt={"Numéro de téléphone"}
               title={"Numéro de téléphone"}
               className="w-5 h-5 sm:w-6 sm:h-6"

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface ISocialButton {
@@ -18,7 +18,7 @@ const SocialButton: FC<ISocialButton> = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    import(`../../../assets/icons/social_${name}.svg`)
+    import(`../../../assets/icons/social_icons/social_${name}.svg`)
       .then((module) => {
         setIconSrc(module.default);
       })
