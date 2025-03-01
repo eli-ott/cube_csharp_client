@@ -218,7 +218,7 @@ const RegisterForm: React.FC = () => {
         )}
         <p className="text-sm w-full text-left text-gray-600">
           Vous avez déjà un compte ?{" "}
-          <button className="text-gray-600 font-semibold hover:underline">
+          <button onClick={()=>navigate("/login")} className="text-gray-600 font-semibold hover:underline cursor-pointer">
             Connectez-vous !
           </button>
         </p>

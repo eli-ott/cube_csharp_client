@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import IconButton from "./IconButton";
 import NavButton from "./NavButton";
+import { useAuth } from "../../../hooks/AuthContext";
 
 interface INavMenu {
   isOpenedMenu: boolean;
@@ -25,6 +26,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
   ];
 
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
 
   const handleClosing = () => {
     setIsOpenedMenu(false);
@@ -69,10 +71,15 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
               destination={btn.destination}
             />
           ))}
-          {/* AFFICHER SEULEMENT SI NON CONNECTÉ */}
-          <button onClick={()=>navigate("/")} className="absolute bottom-0 text-white h-10 cursor-pointer w-full bg-[#A63E36] md:hover:bg-[#88342D] transition-colors duration-1000">
-            Se connecter
-          </button>
+          {!isLoggedIn ? (
+            <button
+              type="button"
+              onClick={() => navigate("/login")}
+              className="absolute bottom-0 text-white h-10 cursor-pointer w-full bg-[#A63E36] md:hover:bg-[#88342D] transition-colors duration-1000"
+            >
+              Se connecter
+            </button>
+          ) : null}
         </div>
       </div>
     </div>
