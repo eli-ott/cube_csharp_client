@@ -14,15 +14,15 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
     { icon: "products", text: "Tous nos produits", destination: "/" },
     { icon: "discount", text: "Nos promotions", destination: "/" },
     { icon: "", text: "separator", destination: "" },
-    { icon: "contact", text: "Service client", destination: "/" },
-    { icon: "who", text: "Qui sommes-nous ?", destination: "/" },
+    { icon: "contact", text: "Service client", destination: "/after-sales-service" },
+    { icon: "who", text: "Qui sommes-nous ?", destination: "/about" },
     { icon: "", text: "separator", destination: "" },
     { icon: "package", text: "Mes commandes", destination: "/" },
     { icon: "cart", text: "Mon panier", destination: "/" },
     { icon: "account", text: "Mon compte", destination: "/" },
     { icon: "", text: "separator", destination: "" },
-    { icon: "", text: "Mentions légales", destination: "/" },
-    { icon: "", text: "Conditions Générales de Vente", destination: "/" },
+    { icon: "", text: "Mentions légales", destination: "/legal-notices" },
+    { icon: "", text: "Conditions Générales de Vente", destination: "/general-terms" },
   ];
 
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
 
   return (
     <div
-      className={`transition-colors duration-1500 absolute left-0 top-0 z-10 h-full w-full ${
+      className={`transition-colors duration-1500 absolute left-0 top-0 z-30 h-full w-full ${
         isOpenedMenu
           ? "bg-black/50 pointer-events-auto"
           : "bg-transparent pointer-events-none"
@@ -69,6 +69,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
               icon={btn.icon}
               text={btn.text}
               destination={btn.destination}
+              setIsOpenedMenu={setIsOpenedMenu}
             />
           ))}
           {!isLoggedIn ? (

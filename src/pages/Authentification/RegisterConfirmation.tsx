@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { confirmAccount } from "../services/authentification";
-import { notify } from "../utils/notify";
-import LoadingDisplay from "../components/ui/LoadingDisplay";
+import { confirmAccount } from "../../services/authentification";
+import { notify } from "../../utils/notify";
+import LoadingDisplay from "../../components/ui/LoadingDisplay";
 
 const RegisterConfirmation = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

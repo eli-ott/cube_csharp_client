@@ -5,11 +5,17 @@ interface INavButton {
   icon?: string;
   text: string;
   destination: string;
+  setIsOpenedMenu: (value: boolean) => void;
 }
 
-const NavButton: React.FC<INavButton> = ({ icon, text, destination }) => {
+const NavButton: React.FC<INavButton> = ({ icon, text, destination, setIsOpenedMenu }) => {
   const navigate = useNavigate();
   const [iconSrc, setIconSrc] = useState<string | null>(null);
+
+  const handleClick = () => {
+    navigate(destination)
+    setIsOpenedMenu(false);
+  }
 
   useEffect(() => {
     if (icon) {
@@ -26,7 +32,7 @@ const NavButton: React.FC<INavButton> = ({ icon, text, destination }) => {
   return (
     <button
       className="flex items-center justify-between w-full h-14 cursor-pointer px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4"
-      onClick={() => navigate(destination)}
+      onClick={handleClick}
     >
       {iconSrc && (
         <img

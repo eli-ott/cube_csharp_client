@@ -3,15 +3,17 @@ import SearchBar from "../common/sharedcommon/SearchBar";
 import logo from "../../assets/images/layouts/logo_large.svg";
 import NavMenu from "../common/sharedcommon/NavMenu";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const Header: React.FC = () => {
   const [isOpened,setIsOpened] = useState<boolean>(false);
+  const navigate = useNavigate();
   const handleOpening = () => {
     setIsOpened(true);
   }
   return (
     <>
-      <header className="w-full h-[130px] bg-[#6A1B1A] sticky top-0 flex flex-col items-center pb-[4px] box-border">
+      <header className="w-full h-[130px] bg-[#6A1B1A] sticky z-20 top-0 flex flex-col items-center pb-[4px] box-border">
         {/* Barre supérieure : icônes + logo */}
         <div className="w-full flex items-center justify-between py-2">
           {/* Menu Icon */}
@@ -24,9 +26,9 @@ const Header: React.FC = () => {
           </div>
 
           {/* Logo */}
-          <div className="w-1/3 flex justify-center items-center">
+          <button className="w-1/3 flex justify-center items-center cursor-pointer" onClick={()=>navigate("/")}>
             <img className="h-[40px] md:h-[50px]" src={logo} alt="Logo" />
-          </div>
+          </button>
 
           {/* User & Cart Icons */}
           <div className="w-1/3 flex justify-end items-center space-x-4 pr-[4px]">

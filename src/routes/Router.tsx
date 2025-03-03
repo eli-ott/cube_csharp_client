@@ -1,36 +1,33 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
 import DefaultLayout from "../components/layout/pages_layout/DefaultLayout";
-import Error404 from "../pages/Error404";
-import Register from "../pages/Register";
-import RegisterConfirmation from "../pages/RegisterConfirmation";
-import Login from "../pages/Login";
 import { useAuth } from "../hooks/AuthContext";
+import { publicRoutes } from "./routes.modules/publicRoutes";
+import { authRoutes } from "./routes.modules/authRoutes";
+import { RouteConfig } from "../models/routingModel";
+import { appendedRoutes } from "./routes.modules/appendedRoutes";
+
+const renderRoute = (route: RouteConfig) => {
+  const { layout, component, path } = route;
+  const routeElement = layout === "default" 
+    ? <DefaultLayout>{component}</DefaultLayout> 
+    : component;
+
+  return <Route key={path} path={path} element={routeElement} />;
+};
+
 const Router = () => {
   const { isLoggedIn } = useAuth();
+
+  const allRoutes = [
+    ...publicRoutes,
+    ...appendedRoutes,
+    ...(!isLoggedIn ? authRoutes : []),
+  ];
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <DefaultLayout>
-              <Home />
-            </DefaultLayout>
-          }
-        />
-        <Route
-          path="/confirm-registration/:email/:guid"
-          element={<RegisterConfirmation />}
-        />
-        {!isLoggedIn ? (
-          <>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-          </>
-        ) : null}
-
-        <Route path="*" element={<Error404 />} />
+        {allRoutes.map(renderRoute)}
       </Routes>
     </BrowserRouter>
   );
