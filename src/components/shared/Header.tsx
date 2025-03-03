@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   }
   return (
     <>
-      <header className="w-full h-[130px] bg-[#6A1B1A] sticky top-0 flex flex-col items-center pb-[4px] box-border">
+      <header className="w-full h-[130px] bg-[#6A1B1A] sticky z-20 top-0 flex flex-col items-center pb-[4px] box-border">
         {/* Barre supérieure : icônes + logo */}
         <div className="w-full flex items-center justify-between py-2">
           {/* Menu Icon */}
