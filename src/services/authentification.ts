@@ -1,7 +1,11 @@
-import { IConfirmAccount, IRegister } from "../models/authentificationModel";
+import {
+  IConfirmAccount,
+  IRegister,
+  ILogin,
+} from "../models/authentificationModel";
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const API_KEY = process.env.REACT_APP_API_KEY;
+const BASE_URL = process.env.REACT_APP_API_BASE_URL as string;
+const API_KEY = process.env.REACT_APP_API_KEY as string;
 
 export const register = async ({
   lastName,
@@ -32,7 +36,7 @@ export const register = async ({
     };
     const headers: HeadersInit = {
       "Content-Type": "application/json",
-      "x-api-key": API_KEY as string,
+      "x-api-key": API_KEY,
     };
 
     const response = await fetch(`${BASE_URL}/customers/register`, {
@@ -48,28 +52,69 @@ export const register = async ({
   }
 };
 
-export const confirmAccount = async ({ email, guid }: IConfirmAccount) => {
+export const login = async ({ email, password }: ILogin): Promise<boolean> => {
   try {
-    const confirmingData = {
-      email: email,
-      guid: guid,
-    };
     const headers: HeadersInit = {
       "Content-Type": "application/json",
-      "x-api-key": API_KEY as string,
+      "x-api-key": API_KEY ,
+    };
+
+    const response = await fetch(`${BASE_URL}/customers/login`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) throw new Error("Erreur lors de la connexion");
+
+    const data = await response.json();
+    let token = data["token"];
+
+    if (token) {
+      document.cookie = `token=${token}; path=/; max-age=${
+        60 * 60 * 12
+      }; secure`;
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+
+export const confirmAccount = async ({
+  email,
+  guid,
+}: IConfirmAccount): Promise<boolean> => {
+  try {
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+      "x-api-key": API_KEY,
     };
     const response = await fetch(
-      `${BASE_URL}/customers/confirm-registration/${confirmingData.email}/${confirmingData.guid}`,
+      `${BASE_URL}/customers/confirm-registration/${email}/${guid}`,
       {
         method: "GET",
         headers: headers,
       }
     );
 
-
     if (!response.ok) throw new Error("Erreur lors de la confirmation");
     return response.ok;
   } catch (error) {
     return false;
   }
+};
+
+
+export const getTokenFromCookie = () : any =>{
+  const cookies = document.cookie.split("; ");
+  const tokenCookie = cookies.find((row) => row.startsWith("token="));
+  return tokenCookie ? tokenCookie.split("=")[1] : null;
+}
+
+export const logOut = () => {
+  document.cookie = "token=; path=/; max-age=0;";
+  sessionStorage.clear();
 };
