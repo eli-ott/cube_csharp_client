@@ -14,7 +14,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
     { icon: "products", text: "Tous nos produits", destination: "/" },
     { icon: "discount", text: "Nos promotions", destination: "/" },
     { icon: "", text: "separator", destination: "" },
-    { icon: "contact", text: "Service client", destination: "/" },
+    { icon: "contact", text: "Service client", destination: "/after-sales-service" },
     { icon: "who", text: "Qui sommes-nous ?", destination: "/" },
     { icon: "", text: "separator", destination: "" },
     { icon: "package", text: "Mes commandes", destination: "/" },
