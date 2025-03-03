@@ -4,8 +4,8 @@ import {
   ILogin,
 } from "../models/authentificationModel";
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const API_KEY = process.env.REACT_APP_API_KEY;
+const BASE_URL = process.env.REACT_APP_API_BASE_URL as string;
+const API_KEY = process.env.REACT_APP_API_KEY as string;
 
 export const register = async ({
   lastName,
@@ -36,7 +36,7 @@ export const register = async ({
     };
     const headers: HeadersInit = {
       "Content-Type": "application/json",
-      "x-api-key": API_KEY as string,
+      "x-api-key": API_KEY,
     };
 
     const response = await fetch(`${BASE_URL}/customers/register`, {
@@ -56,7 +56,7 @@ export const login = async ({ email, password }: ILogin): Promise<boolean> => {
   try {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
-      "x-api-key": API_KEY as string,
+      "x-api-key": API_KEY ,
     };
 
     const response = await fetch(`${BASE_URL}/customers/login`, {
@@ -90,7 +90,7 @@ export const confirmAccount = async ({
   try {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
-      "x-api-key": API_KEY as string,
+      "x-api-key": API_KEY,
     };
     const response = await fetch(
       `${BASE_URL}/customers/confirm-registration/${email}/${guid}`,
