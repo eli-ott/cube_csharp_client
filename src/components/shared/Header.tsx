@@ -6,11 +6,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 
 const Header: React.FC = () => {
-  const [isOpened,setIsOpened] = useState<boolean>(false);
+  const [isOpened, setIsOpened] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleOpening = () => {
     setIsOpened(true);
-  }
+  };
   return (
     <>
       <header className="w-full h-[130px] bg-[#6A1B1A] sticky z-20 top-0 flex flex-col items-center pb-[4px] box-border">
@@ -26,7 +26,10 @@ const Header: React.FC = () => {
           </div>
 
           {/* Logo */}
-          <button className="w-1/3 flex justify-center items-center cursor-pointer" onClick={()=>navigate("/")}>
+          <button
+            className="w-1/3 flex justify-center items-center cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             <img className="h-[40px] md:h-[50px]" src={logo} alt="Logo" />
           </button>
 
@@ -40,7 +43,7 @@ const Header: React.FC = () => {
             <IconButton
               iconName="cart.svg"
               iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px] cart-counter"
-              onClick={() => console.log("cart opened")}
+              onClick={() => navigate("/cart")}
             />
           </div>
         </div>

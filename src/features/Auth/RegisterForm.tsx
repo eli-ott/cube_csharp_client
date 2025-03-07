@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import TextInput from "../components/ui/form/TextInput";
-import PasswordInput from "../components/ui/form/PasswordInput";
-import MailInput from "../components/ui/form/MailInput";
-import PhoneInput from "../components/ui/form/PhoneInput";
-import PasswordVerificator from "../components/ui/form/PasswordVerificator";
-import SubmitButton from "../components/ui/form/SubmitButton";
-import { notify } from "../utils/notify";
-import StepModificator from "../components/ui/form/StepModificator";
-import HalfTextInput from "../components/ui/form/HalfTextInput";
-import { passwordValidator } from "../utils/passwordValidator";
-import { emailValidator } from "../utils/emailValidator";
-import { register } from "../services/authentification";
+import TextInput from "../../components/ui/form/TextInput";
+import PasswordInput from "../../components/ui/form/PasswordInput";
+import MailInput from "../../components/ui/form/MailInput";
+import PhoneInput from "../../components/ui/form/PhoneInput";
+import PasswordVerificator from "../../components/ui/form/PasswordVerificator";
+import SubmitButton from "../../components/ui/form/SubmitButton";
+import { notify } from "../../utils/notify";
+import StepModificator from "../../components/ui/form/StepModificator";
+import HalfTextInput from "../../components/ui/form/HalfTextInput";
+import { passwordValidator } from "../../utils/passwordValidator";
+import { emailValidator } from "../../utils/emailValidator";
+import { register } from "../../services/authentification";
 import { useNavigate } from "react-router-dom";
-import LoadingDisplay from "../components/ui/LoadingDisplay";
+import LoadingDisplay from "../../components/ui/LoadingDisplay";
 
 const RegisterForm: React.FC = () => {
   const [hasAlreadySkipped, setHasAlreadySkipped] = useState<boolean>(false);

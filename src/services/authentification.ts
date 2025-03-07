@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import {
   IConfirmAccount,
   IRegister,
@@ -52,11 +53,12 @@ export const register = async ({
   }
 };
 
+
 export const login = async ({ email, password }: ILogin): Promise<boolean> => {
   try {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
-      "x-api-key": API_KEY ,
+      "x-api-key": API_KEY,
     };
 
     const response = await fetch(`${BASE_URL}/customers/login`, {
@@ -67,21 +69,23 @@ export const login = async ({ email, password }: ILogin): Promise<boolean> => {
 
     if (!response.ok) throw new Error("Erreur lors de la connexion");
 
-    const data = await response.json();
-    let token = data["token"];
+    const data = await response.json(); 
+    const token = data.token;
 
     if (token) {
-      document.cookie = `token=${token}; path=/; max-age=${
-        60 * 60 * 12
-      }; secure`;
+      
+      document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 12}; secure`;
+
       return true;
     } else {
       return false;
     }
   } catch (error) {
+    console.error(error);
     return false;
   }
 };
+
 
 export const confirmAccount = async ({
   email,
@@ -114,7 +118,23 @@ export const getTokenFromCookie = () : any =>{
   return tokenCookie ? tokenCookie.split("=")[1] : null;
 }
 
+
+export const getCustomerInfoFromToken = (): any => {
+  const token = getTokenFromCookie();
+  if (token) {
+    const decodedToken = jwtDecode<any>(token);
+    return {
+      id:parseInt(decodedToken.CustomerID),
+      firstName: decodedToken.FirstName,
+      email: decodedToken.Email,
+    };
+  }
+  return null;
+};
+
+
 export const logOut = () => {
   document.cookie = "token=; path=/; max-age=0;";
   sessionStorage.clear();
+  localStorage.removeItem('customerInfo');
 };

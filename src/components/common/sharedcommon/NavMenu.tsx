@@ -18,7 +18,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
     { icon: "who", text: "Qui sommes-nous ?", destination: "/about" },
     { icon: "", text: "separator", destination: "" },
     { icon: "package", text: "Mes commandes", destination: "/" },
-    { icon: "cart", text: "Mon panier", destination: "/" },
+    { icon: "cart", text: "Mon panier", destination: "/cart" },
     { icon: "account", text: "Mon compte", destination: "/" },
     { icon: "", text: "separator", destination: "" },
     { icon: "", text: "Mentions légales", destination: "/legal-notices" },
@@ -41,7 +41,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
       }`}
     >
       <div
-        className={`flex flex-col relative items-center justify-start w-full sm:w-3/4 md:w-2/4 h-full bg-[#F8F4E3] transform ${
+        className={`flex flex-col relative items-center justify-start w-full sm:w-3/4 md:w-2/4 lg:w-1/4 h-full bg-[#F8F4E3] transform ${
           isOpenedMenu ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-1000`}
       >
