@@ -5,6 +5,7 @@ import { getCustomerCart } from "../../services/cart";
 import { ICart } from "../../models/cartModel";
 import { ICustomerCredentials } from "../../models/authentificationModel";
 import CartEmpty from "../../components/ui/cart/CartEmpty";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const CartLineTable: React.FC = () => {
   const [customerData, setCustomerData] = useState<ICustomerCredentials | null>(
@@ -58,9 +59,7 @@ const CartLineTable: React.FC = () => {
   return (
     <div className="w-8/10 p-4 box-border min-h-80 overflow-y-auto overflow-x-hidden">
       {isLoading ? (
-        <div className="flex justify-center items-center h-auto">
-          <div className="w-16 h-16 border-4 border-t-transparent border-[#6A1B1A] border-solid rounded-full animate-spin"></div>
-        </div>
+        <LoadingSpinner />
       ) : cart && cart?.cartLines.length > 0 ? (
         cart.cartLines.map((line, idx) => (
           <CartItem
