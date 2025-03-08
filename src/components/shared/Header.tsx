@@ -1,5 +1,5 @@
 import IconButton from "../common/sharedcommon/IconButton";
-import SearchBar from "../common/sharedcommon/SearchBar";
+import SearchBar from "../ui/searchBar/SearchBar";
 import logo from "../../assets/images/layouts/logo_large.svg";
 import NavMenu from "../common/sharedcommon/NavMenu";
 import { useState } from "react";
