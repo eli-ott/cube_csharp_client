@@ -34,7 +34,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
 
   return (
     <div
-      className={`transition-colors duration-1500 absolute left-0 top-0 z-30 h-full w-full ${
+      className={`transition-colors duration-1500 fixed left-0 top-0 z-30 h-full w-full ${
         isOpenedMenu
           ? "bg-black/50 pointer-events-auto"
           : "bg-transparent pointer-events-none"
@@ -42,7 +42,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
     >
       <div
         className={`flex flex-col relative items-center justify-start w-full sm:w-3/4 md:w-2/4 lg:w-1/4 h-full bg-[#F8F4E3] transform ${
-          isOpenedMenu ? "translate-x-0" : "-translate-x-full"
+          isOpenedMenu ? "translate-x-0" : "-translate-x-[101%]"
         } transition-transform duration-1000`}
       >
         {/* Header */}
