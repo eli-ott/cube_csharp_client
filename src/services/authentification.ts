@@ -4,9 +4,8 @@ import {
   IRegister,
   ILogin,
 } from "../models/authentificationModel";
+import { API_KEY, BASE_URL } from "../utils/env";
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL as string;
-const API_KEY = process.env.REACT_APP_API_KEY as string;
 
 export const register = async ({
   lastName,

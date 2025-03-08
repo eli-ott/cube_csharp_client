@@ -1,9 +1,7 @@
 import { toast } from "react-toastify";
 import { ICart } from "../models/cartModel";
 import { getTokenFromCookie } from "./authentification";
-
-const BASE_URL = process.env.REACT_APP_API_BASE_URL as string;
-const API_KEY = process.env.REACT_APP_API_KEY as string;
+import { API_KEY, BASE_URL } from "../utils/env";
 
 export const getCustomerCart = async (customerId: number): Promise<ICart | null> => {
   try {
