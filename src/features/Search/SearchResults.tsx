@@ -6,6 +6,7 @@ import { IPagedResponse } from "../../models/pagedModel";
 import { ProductItems } from "../../components/ui/product/ProductItems";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import InfiniteScrollObserver from "../../components/common/InfiniteScrollObserver";
+import ProductFiltersBar from "../../components/ui/product/filters/ProductFiltersBar";
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
@@ -26,19 +27,31 @@ const SearchResults = () => {
     setPage(1);
     setIsLoading(true);
     setProducts(null);
+
     const fetchProducts = async () => {
-      const data = await getProducts({ name: search, page: 1 });
+      const familyIdParam = searchParams.get("family_id");
+      const family_id = familyIdParam ? Number(familyIdParam) : undefined;
+      const data = await getProducts({ name: search, page: 1, family_id });
       setProducts(data);
       setIsLoading(false);
     };
+
     fetchProducts();
-  }, [search]);
+  }, [search, searchParams]);
 
   const loadMore = async () => {
     if (products && page < products.totalPages) {
       setIsLoading(true);
       const nextPage = page + 1;
-      const data = await getProducts({ name: search, page: nextPage });
+      const familyIdParam = searchParams.get("family_id");
+      const family_id = familyIdParam ? Number(familyIdParam) : undefined;
+
+      const data = await getProducts({
+        name: search,
+        page: nextPage,
+        family_id,
+      });
+
       if (data && products) {
         setProducts({
           items: [...products.items, ...data.items],
@@ -48,6 +61,7 @@ const SearchResults = () => {
           totalPages: data.totalPages ?? products.totalPages,
         });
       }
+
       setPage(nextPage);
       setIsLoading(false);
     }
@@ -55,6 +69,7 @@ const SearchResults = () => {
 
   return (
     <>
+      <ProductFiltersBar />
       <h1 className="text-md md:text-3xl font-bold text-center my-8">
         {isLoading
           ? "Recherche en cours..."

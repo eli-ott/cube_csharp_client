@@ -1,5 +1,5 @@
 export interface IFamily {
-    id : number;
+    familyId : number;
     name:string;
     deletionTime?:string;
 }
