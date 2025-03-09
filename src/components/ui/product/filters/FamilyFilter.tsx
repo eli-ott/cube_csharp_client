@@ -37,9 +37,6 @@ const FamilyFilter = () => {
         setSelectedFamily(family);
         setSearchTerm(family.name);
       }
-    } else {
-      setSelectedFamily(null);
-      setSearchTerm("");
     }
   }, [families, searchParams]);
 
@@ -79,7 +76,7 @@ const FamilyFilter = () => {
         onBlur={() => setShowSuggestions(false)}
       />
       {showSuggestions && families && (
-        <ul className="absolute bg-[#F8F4E3] p-4 h-24 overflow-y-auto rounded-b-xl w-full">
+        <ul className="absolute bg-[#F8F4E3] p-4 h-24 overflow-y-auto rounded-xl w-full">
           {families.items.map((family) => (
             <li
               key={family.familyId}
