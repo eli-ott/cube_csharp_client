@@ -1,10 +1,11 @@
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { getProducts } from "../../services/products";
 import { IProduct } from "../../models/productModel";
 import { IPagedResponse } from "../../models/pagedModel";
 import { ProductItems } from "../../components/ui/product/ProductItems";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import InfiniteScrollObserver from "../../components/common/InfiniteScrollObserver";
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
@@ -16,7 +17,6 @@ const SearchResults = () => {
   );
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const infiniteScrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setSearch(searchParams.get("search") || "");
@@ -34,43 +34,24 @@ const SearchResults = () => {
     fetchProducts();
   }, [search]);
 
-  useEffect(() => {
-    const loadMore = async () => {
+  const loadMore = async () => {
+    if (products && page < products.totalPages) {
       setIsLoading(true);
-      if (products && page < products.totalPages) {
-        const nextPage = page + 1;
-        const data = await getProducts({ name: search, page: nextPage });
-        if (data && products) {
-          setProducts({
-            items: [...products.items, ...data.items],
-            currentPage: data.currentPage ?? 1,
-            pageSize: data.pageSize ?? products.pageSize,
-            totalCount: data.totalCount ?? products.totalCount,
-            totalPages: data.totalPages ?? products.totalPages,
-          });
-        }
-        setPage(nextPage);
-        setIsLoading(false);
+      const nextPage = page + 1;
+      const data = await getProducts({ name: search, page: nextPage });
+      if (data && products) {
+        setProducts({
+          items: [...products.items, ...data.items],
+          currentPage: data.currentPage ?? 1,
+          pageSize: data.pageSize ?? products.pageSize,
+          totalCount: data.totalCount ?? products.totalCount,
+          totalPages: data.totalPages ?? products.totalPages,
+        });
       }
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (
-          entries[0].isIntersecting &&
-          products &&
-          page < products.totalPages
-        ) {
-          loadMore();
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (infiniteScrollRef.current) {
-      observer.observe(infiniteScrollRef.current);
+      setPage(nextPage);
+      setIsLoading(false);
     }
-    return () => observer.disconnect();
-  }, [products, page, search]);
+  };
 
   return (
     <>
@@ -91,8 +72,11 @@ const SearchResults = () => {
         <ProductItems products={products} isLoading={isLoading} />
       )}
 
-      {/* h-1 so it has a few height pixels to be detected by the intersection observer */}
-      <div ref={infiniteScrollRef} className="h-1"></div>
+      {/* Render reusable infinite scroll observer */}
+      <InfiniteScrollObserver
+        onIntersect={loadMore}
+        options={{ threshold: 0.5 }}
+      />
     </>
   );
 };
