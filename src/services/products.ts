@@ -8,6 +8,8 @@ interface IProductQuery {
   page?: number;
   is_bio?: boolean;
   family_id?: number;
+  price_min?: number;
+  price_max?: number;
 }
 
 const getProducts = async (
@@ -26,6 +28,10 @@ const getProducts = async (
       url.searchParams.append("is_bio", query.is_bio.toString());
     if (query?.family_id)
       url.searchParams.append("family_id", query.family_id.toString());
+    if (query?.price_min)
+      url.searchParams.append("price_min", query.price_min.toString());
+    if (query?.price_max)
+      url.searchParams.append("price_max", query.price_max.toString());
 
     const response = await fetch(url, {
       method: "GET",

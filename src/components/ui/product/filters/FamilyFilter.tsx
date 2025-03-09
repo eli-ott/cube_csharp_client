@@ -68,7 +68,7 @@ const FamilyFilter = () => {
   };
 
   return (
-    <div className="relative text-[10px] w-full m-2">
+    <div className="relative text-[10px] w-full md:w-1/3 m-2">
       <input
         className="p-2 rounded-xl bg-[#F8F4E3] w-full"
         type="text"

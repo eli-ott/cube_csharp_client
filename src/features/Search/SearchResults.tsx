@@ -31,7 +31,20 @@ const SearchResults = () => {
     const fetchProducts = async () => {
       const familyIdParam = searchParams.get("family_id");
       const family_id = familyIdParam ? Number(familyIdParam) : undefined;
-      const data = await getProducts({ name: search, page: 1, family_id });
+
+      const priceMinParam = searchParams.get("price_min");
+      const priceMaxParam = searchParams.get("price_max");
+      const price_min = priceMinParam ? Number(priceMinParam) : undefined;
+      const price_max = priceMaxParam ? Number(priceMaxParam) : undefined;
+
+      const data = await getProducts({
+        name: search,
+        page: 1,
+        family_id,
+        price_min,
+        price_max,
+      });
+
       setProducts(data);
       setIsLoading(false);
     };
@@ -43,13 +56,21 @@ const SearchResults = () => {
     if (products && page < products.totalPages) {
       setIsLoading(true);
       const nextPage = page + 1;
+
       const familyIdParam = searchParams.get("family_id");
       const family_id = familyIdParam ? Number(familyIdParam) : undefined;
+
+      const priceMinParam = searchParams.get("price_min");
+      const priceMaxParam = searchParams.get("price_max");
+      const price_min = priceMinParam ? Number(priceMinParam) : undefined;
+      const price_max = priceMaxParam ? Number(priceMaxParam) : undefined;
 
       const data = await getProducts({
         name: search,
         page: nextPage,
         family_id,
+        price_min,
+        price_max,
       });
 
       if (data && products) {
