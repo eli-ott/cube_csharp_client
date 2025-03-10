@@ -67,6 +67,8 @@ const SearchResults = () => {
       const priceMaxParam = searchParams.get("price_max");
       const price_min = priceMinParam ? Number(priceMinParam) : undefined;
       const price_max = priceMaxParam ? Number(priceMaxParam) : undefined;
+     
+      const is_bio = searchParams.get("is_bio");
 
       const data = await getProducts({
         name: search,
@@ -74,6 +76,7 @@ const SearchResults = () => {
         family_id,
         price_min,
         price_max,
+        is_bio: is_bio === "true" ? true : is_bio === "false" ? false : undefined,
       });
 
       if (data && products) {
