@@ -57,7 +57,7 @@ const PriceFilter = () => {
         <div className="relative w-full">
           <input
             type="number"
-            className="w-full p-2 pr-8 rounded-xl bg-[#F8F4E3]"
+            className="w-full p-2 pr-8 rounded-xl bg-[#F8F4E3] outline-black/50"
             placeholder="Min price"
             min={defaultMin}
             value={priceMin}
@@ -71,7 +71,7 @@ const PriceFilter = () => {
         <div className="relative w-full">
           <input
             type="number"
-            className="w-full p-2 pr-8 rounded-xl bg-[#F8F4E3]"
+            className="w-full p-2 pr-8 rounded-xl bg-[#F8F4E3] outline-black/50"
             placeholder="Max price"
             min={defaultMin}
             value={priceMax}

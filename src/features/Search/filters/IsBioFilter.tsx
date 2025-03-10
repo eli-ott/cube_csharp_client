@@ -30,7 +30,7 @@ const IsBioFilter = () => {
   return (
     <div className="m-2 text-[10px] w-full md:w-1/3">
       <select
-        className="p-2 rounded-xl bg-[#F8F4E3] w-full"
+        className="p-2 rounded-xl bg-[#F8F4E3] w-full outline-black/50"
         value={selectedOption}
         onChange={handleChange}
       >

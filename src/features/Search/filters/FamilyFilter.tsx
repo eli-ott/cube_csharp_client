@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { IPagedResponse } from "../../../../models/pagedModel";
-import { IFamily } from "../../../../models/familyModel";
-import { getFamilies } from "../../../../services/products";
+import { IPagedResponse } from "../../../models/pagedModel";
+import { IFamily } from "../../../models/familyModel";
+import { getFamilies } from "../../../services/products";
 
 const FamilyFilter = () => {
   const [families, setFamilies] = useState<IPagedResponse<IFamily> | null>(
@@ -67,7 +67,7 @@ const FamilyFilter = () => {
   return (
     <div className="relative text-[10px] w-full md:w-1/3 m-2">
       <input
-        className="p-2 rounded-xl bg-[#F8F4E3] w-full"
+        className="p-2 rounded-xl bg-[#F8F4E3] w-full outline-black/50"
         type="text"
         placeholder="Filtrer par famille"
         value={searchTerm}

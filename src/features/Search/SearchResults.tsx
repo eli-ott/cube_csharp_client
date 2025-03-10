@@ -6,7 +6,7 @@ import { IPagedResponse } from "../../models/pagedModel";
 import { ProductItems } from "../../components/ui/product/ProductItems";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import InfiniteScrollObserver from "../../components/common/InfiniteScrollObserver";
-import ProductFiltersBar from "../../components/ui/product/filters/ProductFiltersBar";
+import ProductFiltersBar from "./filters/ProductFiltersBar";
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
