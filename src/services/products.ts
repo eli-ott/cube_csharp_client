@@ -24,7 +24,7 @@ const getProducts = async (
     const url = new URL(`${BASE_URL}/products`);
     if (query?.name) url.searchParams.append("name", query.name);
     if (query?.page) url.searchParams.append("page", query.page.toString());
-    if (query?.is_bio)
+    if (query?.is_bio !== undefined)
       url.searchParams.append("is_bio", query.is_bio.toString());
     if (query?.family_id)
       url.searchParams.append("family_id", query.family_id.toString());
