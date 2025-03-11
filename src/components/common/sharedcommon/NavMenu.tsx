@@ -18,7 +18,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
     { icon: "who", text: "Qui sommes-nous ?", destination: "/about" },
     { icon: "", text: "separator", destination: "" },
     { icon: "package", text: "Mes commandes", destination: "/" },
-    { icon: "cart", text: "Mon panier", destination: "/" },
+    { icon: "cart", text: "Mon panier", destination: "/cart" },
     { icon: "account", text: "Mon compte", destination: "/" },
     { icon: "", text: "separator", destination: "" },
     { icon: "", text: "Mentions légales", destination: "/legal-notices" },
@@ -34,15 +34,15 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
 
   return (
     <div
-      className={`transition-colors duration-1500 absolute left-0 top-0 z-30 h-full w-full ${
+      className={`transition-colors duration-1500 fixed left-0 top-0 z-30 h-full w-full ${
         isOpenedMenu
           ? "bg-black/50 pointer-events-auto"
           : "bg-transparent pointer-events-none"
       }`}
     >
       <div
-        className={`flex flex-col relative items-center justify-start w-full sm:w-3/4 md:w-2/4 h-full bg-[#F8F4E3] transform ${
-          isOpenedMenu ? "translate-x-0" : "-translate-x-full"
+        className={`flex flex-col relative items-center justify-start w-full sm:w-3/4 md:w-2/4 lg:w-1/4 h-full bg-[#F8F4E3] transform ${
+          isOpenedMenu ? "translate-x-0" : "-translate-x-[101%]"
         } transition-transform duration-1000`}
       >
         {/* Header */}

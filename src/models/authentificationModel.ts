@@ -16,6 +16,12 @@ export interface ILogin {
   password: string;
 }
 
+export interface ICustomerCredentials {
+  id:number;
+  firstname:string;
+  email:string;
+}
+
 export interface IConfirmAccount {
   email: string;
   guid: string;

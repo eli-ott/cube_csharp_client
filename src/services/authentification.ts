@@ -1,11 +1,11 @@
+import { jwtDecode } from "jwt-decode";
 import {
   IConfirmAccount,
   IRegister,
   ILogin,
 } from "../models/authentificationModel";
+import { API_KEY, BASE_URL } from "../utils/env";
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL as string;
-const API_KEY = process.env.REACT_APP_API_KEY as string;
 
 export const register = async ({
   lastName,
@@ -52,11 +52,12 @@ export const register = async ({
   }
 };
 
+
 export const login = async ({ email, password }: ILogin): Promise<boolean> => {
   try {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
-      "x-api-key": API_KEY ,
+      "x-api-key": API_KEY,
     };
 
     const response = await fetch(`${BASE_URL}/customers/login`, {
@@ -68,20 +69,22 @@ export const login = async ({ email, password }: ILogin): Promise<boolean> => {
     if (!response.ok) throw new Error("Erreur lors de la connexion");
 
     const data = await response.json();
-    let token = data["token"];
+    const token = data.token;
 
     if (token) {
-      document.cookie = `token=${token}; path=/; max-age=${
-        60 * 60 * 12
-      }; secure`;
+
+      document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 12}; secure`;
+
       return true;
     } else {
       return false;
     }
   } catch (error) {
+    console.error(error);
     return false;
   }
 };
+
 
 export const confirmAccount = async ({
   email,
@@ -108,13 +111,31 @@ export const confirmAccount = async ({
 };
 
 
-export const getTokenFromCookie = () : any =>{
+export const getTokenFromCookie = (): any => {
   const cookies = document.cookie.split("; ");
   const tokenCookie = cookies.find((row) => row.startsWith("token="));
   return tokenCookie ? tokenCookie.split("=")[1] : null;
 }
 
-export const logOut = () => {
+
+export const getCustomerInfoFromToken = (): any => {
+  const token = getTokenFromCookie();
+  if (token) {
+    const decodedToken = jwtDecode<any>(token);
+    return {
+      id: parseInt(decodedToken.CustomerID),
+      firstName: decodedToken.FirstName,
+      email: decodedToken.Email,
+      cartId:decodedToken.CartId,
+    };
+  }
+  return null;
+};
+
+
+export const logOut = (): void => {
   document.cookie = "token=; path=/; max-age=0;";
   sessionStorage.clear();
+  localStorage.clear();
+  window.location.href = "/";
 };

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import MailInput from "../components/ui/form/MailInput";
-import PasswordInput from "../components/ui/form/PasswordInput";
-import SubmitButton from "../components/ui/form/SubmitButton";
+import MailInput from "../../components/ui/form/MailInput";
+import PasswordInput from "../../components/ui/form/PasswordInput";
+import SubmitButton from "../../components/ui/form/SubmitButton";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/authentification";
-import { notify } from "../utils/notify";
-import LoadingDisplay from "../components/ui/LoadingDisplay";
+import { login } from "../../services/authentification";
+import { notify } from "../../utils/notify";
+import LoadingDisplay from "../../components/ui/LoadingDisplay";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
