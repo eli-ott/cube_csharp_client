@@ -5,9 +5,11 @@ import NavMenu from "../common/sharedcommon/NavMenu";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import CartIcon from "../ui/header/CartIcon";
+import { useAuth } from "../../hooks/AuthContext";
 
 const Header: React.FC = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const {isLoggedIn} = useAuth();
   const navigate = useNavigate();
   const handleOpening = () => {
     setIsOpened(true);
@@ -39,7 +41,7 @@ const Header: React.FC = () => {
             <IconButton
               iconName="account.svg"
               iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px]"
-              onClick={() => console.log("user profile")}
+              onClick={isLoggedIn ? ()=>navigate("/") : ()=>navigate("/login")}
             />
             <CartIcon iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px] cart-counter" />
           </div>

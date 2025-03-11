@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Placeholder from "../../../assets/images/placeholder.png";
 import { ICartLine } from "../../../models/cartModel";
 import QuantityButtons from "../../../features/Cart/QuantityButtons";
@@ -17,7 +17,7 @@ const CartItem: React.FC<ICartItem> = ({
   cartline,
   deleteLine,
   goToProduct,
-  isLoadingRemove
+  isLoadingRemove,
 }) => {
   const product = cartline?.product;
 
@@ -25,12 +25,11 @@ const CartItem: React.FC<ICartItem> = ({
     productName: product?.name ?? "Produit inconnu",
     price: product?.unitPrice ?? product?.boxPrice ?? "0",
     discount: product?.discount?.value,
-    isAside : cartline?.isSetAside,
+    isAside: cartline?.isSetAside,
     quantity: cartline?.quantity ?? 1,
     imageSrc: product?.images?.[0]?.imageUrl ?? Placeholder,
     addedAt: cartline?.creationTime ?? "00/00/0000",
   });
-
 
   return (
     <div className="bg-[#EEE7C7]/75 rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-start gap-4 shadow-lg max-w-3xl mx-auto w-full">
@@ -82,7 +81,10 @@ const CartItem: React.FC<ICartItem> = ({
         />
 
         {/* Bouton "Mettre de côté" */}
-<SetAsideButton productId={product?.productId} isAside={itemData?.isAside} />
+        <SetAsideButton
+          productId={product?.productId}
+          isAside={itemData?.isAside}
+        />
 
         {/* Date ajout panier */}
         <p className="text-xs text-gray-500 mt-2">

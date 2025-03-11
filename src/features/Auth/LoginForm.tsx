@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authentification";
 import { notify } from "../../utils/notify";
 import LoadingDisplay from "../../components/ui/LoadingDisplay";
+import { useAuth } from "../../hooks/AuthContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {setIsLoggedIn} = useAuth();
 
   const navigate = useNavigate();
 
@@ -21,6 +23,7 @@ const LoginForm = () => {
     setIsLoading(false);
     if (isLoggedIn) {
       navigate("/");
+      setIsLoggedIn(true);
       notify("Vous nous aviez manqué !", "success");
     } else {
       notify("Adresse mail ou mot de passe incorrect.", "error");
