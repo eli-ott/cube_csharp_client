@@ -12,7 +12,7 @@ const CartEmpty = () => {
         title="Panier vide"
       />
       <h2 className="text-2xl mb-10">Votre panier est vide</h2>
-      <RedirectionButton label="Découvrir nos articles" destination="/" />
+      <RedirectionButton label="Découvrir nos articles" destination="/search" />
     </div>
   );
 };

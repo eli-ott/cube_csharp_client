@@ -68,11 +68,11 @@ export const login = async ({ email, password }: ILogin): Promise<boolean> => {
 
     if (!response.ok) throw new Error("Erreur lors de la connexion");
 
-    const data = await response.json(); 
+    const data = await response.json();
     const token = data.token;
 
     if (token) {
-      
+
       document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 12}; secure`;
 
       return true;
@@ -111,7 +111,7 @@ export const confirmAccount = async ({
 };
 
 
-export const getTokenFromCookie = () : any =>{
+export const getTokenFromCookie = (): any => {
   const cookies = document.cookie.split("; ");
   const tokenCookie = cookies.find((row) => row.startsWith("token="));
   return tokenCookie ? tokenCookie.split("=")[1] : null;
@@ -123,17 +123,19 @@ export const getCustomerInfoFromToken = (): any => {
   if (token) {
     const decodedToken = jwtDecode<any>(token);
     return {
-      id:parseInt(decodedToken.CustomerID),
+      id: parseInt(decodedToken.CustomerID),
       firstName: decodedToken.FirstName,
       email: decodedToken.Email,
+      cartId:decodedToken.CartId,
     };
   }
   return null;
 };
 
 
-export const logOut = () => {
+export const logOut = (): void => {
   document.cookie = "token=; path=/; max-age=0;";
   sessionStorage.clear();
-  localStorage.removeItem('customerInfo');
+  localStorage.clear();
+  window.location.href = "/";
 };

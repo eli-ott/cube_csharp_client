@@ -4,6 +4,7 @@ import logo from "../../assets/images/layouts/logo_large.svg";
 import NavMenu from "../common/sharedcommon/NavMenu";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import CartIcon from "../ui/header/CartIcon";
 
 const Header: React.FC = () => {
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -40,11 +41,7 @@ const Header: React.FC = () => {
               iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px]"
               onClick={() => console.log("user profile")}
             />
-            <IconButton
-              iconName="cart.svg"
-              iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px] cart-counter"
-              onClick={() => navigate("/cart")}
-            />
+            <CartIcon iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px] cart-counter" />
           </div>
         </div>
 

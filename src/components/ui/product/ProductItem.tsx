@@ -1,11 +1,13 @@
 import { IImage } from "../../../models/imageModel";
 import { IProduct } from "../../../models/productModel";
-import { AddToCartButton } from "./AddToCartButton";
 import { ProductDetailButton } from "./ProductDetailButton";
 import { ProductImage } from "./ProductImage";
 import ProductPrice from "./ProductPrice";
 import { ProductRating } from "./ProductRating";
 import PlaceHolderImage from "../../../assets/images/placeholder.png";
+import { AddToCartButton } from "../../../features/Search/AddToCartButton";
+import { useState } from "react";
+import ItemStateLoader from "../ItemStateLoader";
 
 const ProductItem = ({ product }: { product: IProduct }) => {
   const {
@@ -19,12 +21,14 @@ const ProductItem = ({ product }: { product: IProduct }) => {
     discount,
   } = product;
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const defaultImage = {
     imageUrl: PlaceHolderImage,
   } as IImage;
 
   return (
-    <div className="flex flex-col bg-[#F8F4E3] p-4 rounded-md shadow-lg text-[#333333]">
+    <div className="flex flex-col bg-[#F8F4E3] p-4 rounded-md shadow-lg text-[#333333] relative">
       <ProductImage
         image={images[0] ?? defaultImage}
         name={name}
@@ -54,9 +58,13 @@ const ProductItem = ({ product }: { product: IProduct }) => {
         <div className="flex flex-col gap-1 mt-2">
           <ProductPrice price={unitPrice ?? 0} discount={discount} />
           <ProductDetailButton />
-          <AddToCartButton />
+          <AddToCartButton
+            productId={product.productId}
+            setIsLoading={setIsLoading}
+          />
         </div>
       </div>
+      {isLoading ? <ItemStateLoader /> : null}
     </div>
   );
 };

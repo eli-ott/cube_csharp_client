@@ -1,11 +1,7 @@
-import RedirectionButton from "../../components/common/RedirectionButton";
-import CartItem from "../../components/ui/cart/CartItem";
 import CartLineTable from "../../features/Cart/CartLineTable";
 
 const Cart = () => {
 
-
-  const cart = ["test"];
 
   return (
     <main className="flex flex-col justify-start pt-4 items-center">

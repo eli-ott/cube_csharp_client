@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import CartItem from "../../components/ui/cart/CartItem";
 import { getCustomerInfoFromToken } from "../../services/authentification";
-import { getCustomerCart } from "../../services/cart";
+import {
+  deleteCartLine,
+  getCustomerCart,
+} from "../../services/cart";
 import { ICart } from "../../models/cartModel";
 import { ICustomerCredentials } from "../../models/authentificationModel";
 import CartEmpty from "../../components/ui/cart/CartEmpty";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import { toast } from "react-toastify";
+import { useCart } from "../../hooks/CartContext";
 
 const CartLineTable: React.FC = () => {
   const [customerData, setCustomerData] = useState<ICustomerCredentials | null>(
@@ -13,6 +18,8 @@ const CartLineTable: React.FC = () => {
   );
   const [cart, setCart] = useState<ICart | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingRemove, setIsLoadingRemove] = useState<boolean>(false);
+  const {counter,setCounter} = useCart();
 
   useEffect(() => {
     const fetchCustomerCredentials = async () => {
@@ -32,19 +39,29 @@ const CartLineTable: React.FC = () => {
     }
   }, [customerData]);
 
-  const deleteLine = () => {
-    alert("Ligne supprimée");
-  };
-
-  const updateQuantity = (
-    productId: number,
-    quantity: number,
-    newQuantity: number
-  ) => {
-    if (newQuantity > quantity) {
-      alert(`Produit ${productId} incrémenté`);
-    } else {
-      alert(`Produit ${productId} décrémenté`);
+  const deleteLine = async (productId: number) => {
+    try {
+      setIsLoadingRemove(true);
+      const success = await deleteCartLine(productId);
+      if (success) {
+        setCart((prevCart) => {
+          if (!prevCart) return null;
+          return {
+            ...prevCart,
+            cartLines: prevCart.cartLines.filter(
+              (line) => line.product.productId !== productId
+            ),
+          };
+        });
+        let newCounter = counter ? counter - 1 : 0;
+        setCounter(newCounter);
+      } else {
+        toast.error("Echec de la suppression de l'article");
+      }
+    } catch (error) {
+      toast.error("Erreur lors de la suppression.");
+    } finally {
+      setIsLoadingRemove(false);
     }
   };
 
@@ -65,10 +82,10 @@ const CartLineTable: React.FC = () => {
           <CartItem
             key={idx}
             cartline={line}
-            updateQuantity={(value) => updateQuantity(line.product.productId, line.quantity, value)}
             setAside={() => setAside(line.product.productId)}
-            deleteLine={deleteLine}
+            deleteLine={() => deleteLine(line.product.productId)}
             goToProduct={() => goToProduct(line.product.productId)}
+            isLoadingRemove={isLoadingRemove}
           />
         ))
       ) : (

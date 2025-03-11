@@ -2,6 +2,7 @@ import { IFamily } from "../models/familyModel";
 import { IPagedResponse } from "../models/pagedModel";
 import { IProduct } from "../models/productModel";
 import { API_KEY, BASE_URL } from "../utils/env";
+import { getCustomerInfoFromToken, getTokenFromCookie } from "./authentification";
 
 interface IProductQuery {
   name?: string;
@@ -90,4 +91,51 @@ const getFamilies = async (
   }
 };
 
-export { getProducts, getFamilies };
+interface IAddToCart {
+  productId: number;
+  quantity: number;
+}
+
+const addProductToCart = async ({ productId, quantity }: IAddToCart) => {
+  try {
+    const token = getTokenFromCookie();
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+      "x-api-key": API_KEY,
+      "Authorization": `Bearer ${token}`
+    };
+    
+    const body: IAddToCart = {
+      productId,
+      quantity
+    };
+
+    const userInfos = getCustomerInfoFromToken();
+    const url = new URL(`${BASE_URL}/customers/${userInfos?.id}/add-to-cart`);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    });
+
+    let data = null;
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      data = await response.json();
+    }
+
+    if (!response.ok) {
+      const errorMessage = data?.ExceptionMessage || data?.message || `Erreur ${response.status}: ${response.statusText}`;
+      throw new Error(errorMessage);
+    }
+
+    return data || { success: true }; 
+
+  } catch (error: any) {
+    console.error("Erreur lors de l'ajout au panier :", error.message);
+    return { success: false, message: error.message };
+  }
+};
+
+export { getProducts, getFamilies, addProductToCart };
