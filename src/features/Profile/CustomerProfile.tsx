@@ -4,6 +4,7 @@ import { updateCustomerInfos } from "../../services/customer";
 import { emailValidator } from "../../utils/emailValidator";
 import CustomerUpdateAddress from "./CustomerUpdateAddress";
 import CustomerChangePassword from "./CustomerChangePassword";
+import ItemStateLoader from "../../components/ui/ItemStateLoader";
 
 const CustomerProfile: React.FC = () => {
   interface IUserInfos {
@@ -39,6 +40,7 @@ const CustomerProfile: React.FC = () => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
+  const [isLoading, setIsLoading] = useState<boolean>(true); // État de chargement
   const { user, setUser } = useUser();
 
   const handleEditUserAddress = async (newAddress: IUserAddress) => {
@@ -100,28 +102,34 @@ const CustomerProfile: React.FC = () => {
         country: user.address.country,
         complement: user.address.complement || "",
       });
+
+      setIsLoading(false); // Données chargées
     }
   }, [user]);
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
       <h2 className="text-2xl font-semibold text-[#6A1B1A] mb-4">Profil Utilisateur</h2>
-      <div className="space-y-4">
-        <div>
-          <label className="block text-gray-700">Prénom</label>
-          {isEditing ? (
-            <input
-              type="text"
-              className="w-full border border-[#6A1B1A] bg-gray-100 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#6A1B1A]"
-              value={userInfos.firstName}
-              onChange={(e) =>
-                setUserInfos({ ...userInfos, firstName: e.target.value })
-              }
-            />
-          ) : (
-            <p className="p-2 border border-gray-300 rounded-lg bg-gray-50">{userInfos.firstName}</p>
-          )}
-        </div>
+      <div className=" relative space-y-4">
+        {isLoading ? (
+          <ItemStateLoader />
+        ) : (
+          <div>
+            <label className="block text-gray-700">Prénom</label>
+            {isEditing ? (
+              <input
+                type="text"
+                className="w-full border border-[#6A1B1A] bg-gray-100 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#6A1B1A]"
+                value={userInfos.firstName}
+                onChange={(e) =>
+                  setUserInfos({ ...userInfos, firstName: e.target.value })
+                }
+              />
+            ) : (
+              <p className="p-2 border border-gray-300 rounded-lg bg-gray-50">{userInfos.firstName}</p>
+            )}
+          </div>
+        )}
         <div>
           <label className="block text-gray-700">Nom</label>
           {isEditing ? (
@@ -187,11 +195,9 @@ const CustomerProfile: React.FC = () => {
           onClose={() => setIsOpenAddress(false)}
         />
       )}
-      {
-        isOpenPassword && (
-            <CustomerChangePassword onClose={()=> setIsOpenPassword(false)}/>
-        )
-      }
+      {isOpenPassword && (
+        <CustomerChangePassword onClose={() => setIsOpenPassword(false)} />
+      )}
     </div>
   );
 };
