@@ -4,7 +4,7 @@ export interface IAddress {
     city: string;
     zipCode: string;
     country: string;
-    complement: string;
+    complement: string | null;
     deletiontime?: string;
     updateTime: string;
     creationTime: string;

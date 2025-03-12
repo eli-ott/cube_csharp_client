@@ -1,9 +1,9 @@
-interface IPasswordValidator {
+export interface IPasswordValidator {
   password: string;
   passwordConfirm: string;
 }
 
-interface IPasswordConfirmation {
+export interface IPasswordConfirmation {
   ok: boolean;
   message: string;
   strength: number;
