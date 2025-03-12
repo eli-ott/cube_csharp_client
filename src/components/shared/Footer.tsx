@@ -1,9 +1,11 @@
 import React from "react";
 import SocialButton from "../common/sharedcommon/SocialButton";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/AuthContext";
 
 const Footer: React.FC = () => {
   const navigate = useNavigate();
+  const {isLoggedIn} = useAuth();
   const socialMediaBtnProps = [
     { name: "facebook", link: "" },
     { name: "youtube", link: "" },
@@ -54,10 +56,10 @@ const Footer: React.FC = () => {
           {/* Services */}
           <div className="flex flex-col items-center sm:items-start">
             <h1 className="text-lg font-semibold">Services</h1>
-            <button onClick={() => navigate("/")} className="cursor-pointer">
+            <button onClick={isLoggedIn ? () => navigate("/profile") : () => navigate("/login")} className="cursor-pointer">
               Mon Espace Client
             </button>
-            <button onClick={() => navigate("/")} className="cursor-pointer">
+            <button onClick={isLoggedIn ? () => navigate("/") : () => navigate("/login")} className="cursor-pointer">
               Mes commandes
             </button>
           </div>

@@ -6,6 +6,7 @@ import App from "./App";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./hooks/AuthContext";
 import { CartProvider } from "./hooks/CartContext";
+import { UserProvider } from "./hooks/CustomerContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,10 +14,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <CartProvider>
-      <AuthProvider>
-        <App />
-        <ToastContainer position="bottom-right" autoClose={2500} />
-      </AuthProvider>
+      <UserProvider>
+        <AuthProvider>
+          <App />
+          <ToastContainer position="bottom-right" autoClose={2500} />
+        </AuthProvider>
+      </UserProvider>
     </CartProvider>
   </React.StrictMode>
 );

@@ -28,7 +28,7 @@ const CartItem: React.FC<ICartItem> = ({
     isAside: cartline?.isSetAside,
     quantity: cartline?.quantity ?? 1,
     imageSrc: product?.images?.[0]?.imageUrl ?? Placeholder,
-    addedAt: cartline?.creationTime ?? "00/00/0000",
+    addedAt: cartline?.creationTime ? new Date(cartline?.creationTime).toLocaleDateString() : "00/00/0000",
   });
 
   return (

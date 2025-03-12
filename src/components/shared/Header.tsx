@@ -42,7 +42,7 @@ const Header: React.FC = () => {
               iconName="account.svg"
               iconSize="w-[40px] h-[40px] md:w-[45px] md:h-[45px]"
               onClick={
-                isLoggedIn ? () => navigate("/") : () => navigate("/login")
+                isLoggedIn ? () => navigate("/profile") : () => navigate("/login")
               }
             />
             {isLoggedIn ? (
