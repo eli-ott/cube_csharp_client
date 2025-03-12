@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IStepModificator {
   actualStep: number;
@@ -9,11 +10,14 @@ const StepModificator: React.FC<IStepModificator> = ({
   actualStep,
   setActualStep,
 }) => {
+  const navigate = useNavigate();
   const handlePreviousStep = (): void => {
     if (actualStep > 1) {
       setActualStep(actualStep - 1);
     }
-
+    else if (actualStep === 1){
+      navigate("/");
+    }
     return;
   };
 

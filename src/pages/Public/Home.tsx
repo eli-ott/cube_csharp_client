@@ -2,8 +2,7 @@ import { logOut } from '../../services/authentification';
 
 const Home = () => {
     return (
-        <main className="text-3xl font-bold underline">
-            Hello world!
+        <main className="">
             <button onClick={()=>logOut()}>Deco</button>
         </main>
     );

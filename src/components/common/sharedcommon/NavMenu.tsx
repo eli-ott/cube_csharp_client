@@ -39,11 +39,13 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
           ? "bg-black/50 pointer-events-auto"
           : "bg-transparent pointer-events-none"
       }`}
+      onClick={handleClosing} 
     >
       <div
         className={`flex flex-col relative items-center justify-start w-full sm:w-3/4 md:w-2/4 lg:w-1/4 h-full bg-[#F8F4E3] transform ${
           isOpenedMenu ? "translate-x-0" : "-translate-x-[101%]"
         } transition-transform duration-1000`}
+        onClick={(e) => e.stopPropagation()} 
       >
         {/* Header */}
         <div className="flex items-center justify-between w-full h-16 bg-[#6A1B1A]">
