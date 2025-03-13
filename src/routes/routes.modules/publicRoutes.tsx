@@ -5,6 +5,7 @@ import { RouteConfig } from "../../models/routingModel";
 import Cart from "../../pages/Public/Cart";
 import Search from "../../pages/Public/Search";
 import Profile from "../../pages/Public/Profile";
+import Product from "../../pages/Public/Product";
 
 export const publicRoutes: RouteConfig[] = [
   { name: "home", path: "/", layout: "default", component: <Home /> },
@@ -12,4 +13,5 @@ export const publicRoutes: RouteConfig[] = [
   { name: "profile", path: "/profile", layout: "default", component: <Profile /> },
   { name: "search", path: "/search", layout: "default", component: <Search /> },
   { name: "error", path: "*", layout: null, component: <Error404 /> },
+  { name: "product", path: "/product/:productId", layout: "default", component: <Product /> },
 ];
