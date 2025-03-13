@@ -12,7 +12,7 @@ const CustomerReviewsTable: React.FC = () => {
     if (user) {
       setReviews(user.reviews);
     }
-  }, []);
+  }, [user]);
 
   const renderStars = (rating: number) => {
     const fullStars = Math.round(rating);

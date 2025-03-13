@@ -18,6 +18,7 @@ const CartItem: React.FC<ICartItem> = ({
   deleteLine,
   goToProduct,
   isLoadingRemove,
+  setAside,
 }) => {
   const product = cartline?.product;
 
@@ -82,6 +83,7 @@ const CartItem: React.FC<ICartItem> = ({
 
         {/* Bouton "Mettre de côté" */}
         <SetAsideButton
+          setAside={setAside}
           productId={product?.productId}
           isAside={itemData?.isAside}
         />
