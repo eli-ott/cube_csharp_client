@@ -74,7 +74,7 @@ const CartLineTable: React.FC = () => {
   };
 
   return (
-    <div className="w-8/10 p-4 box-border min-h-80 overflow-y-auto overflow-x-hidden">
+    <div className="w-8/10 p-4 box-border min-h-80 overflow-y-auto overflow-x-hidden flex flex-col gap-4">
       {isLoading ? (
         <LoadingSpinner />
       ) : cart && cart?.cartLines.length > 0 ? (

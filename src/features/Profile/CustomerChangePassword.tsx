@@ -59,11 +59,6 @@ const CustomerChangePassword: React.FC<CustomerChangePasswordProps> = ({
     setPasswordValidation(result);
   };
 
-  // Pour le bouton Sauvegarder, le formulaire est valide si :
-  // - L'ancien mot de passe n'est pas vide,
-  // - Le nouveau mot de passe et sa confirmation ne sont pas vides,
-  // - Les deux correspondent,
-  // - Et le validateur retourne ok.
   const isFormValid =
     oldPassword.trim() !== "" &&
     newPassword.trim() !== "" &&
@@ -71,20 +66,12 @@ const CustomerChangePassword: React.FC<CustomerChangePasswordProps> = ({
     newPassword === confirmPassword &&
     passwordValidation.ok;
 
-  const handleSaveClick = () => {
-    if (isFormValid) {
-      // Appeler ici votre logique de changement de mot de passe
-      onClose();
-    }
-  };
 
-  // Fonction générique pour gérer les classes des inputs en fonction de la validité
+
   const getInputClass = (value: string, touched: boolean, isValid: boolean) => {
-    // Tant que l'utilisateur n'a pas tapé ou le champ est vide, on utilise la bordure grise.
     if (!touched || value.trim() === "") {
       return "w-full pr-10 border border-gray-300 bg-gray-100 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#6A1B1A]";
     }
-    // Si l'utilisateur a commencé à taper et que le champ est considéré comme valide, on utilise la couleur principale.
     return isValid
       ? "w-full pr-10 border border-[#6A1B1A] bg-gray-100 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#6A1B1A]"
       : "w-full pr-10 border border-red-500 bg-gray-100 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-[#6A1B1A]";
@@ -205,7 +192,7 @@ const CustomerChangePassword: React.FC<CustomerChangePasswordProps> = ({
             </label>
             <div className="relative">
               <input
-                type={!showConfirmPassword ? "text" : "password"}
+                type={showConfirmPassword ? "text" : "password"}
                 className={getInputClass(
                   confirmPassword,
                   confirmPasswordTouched,
@@ -224,7 +211,7 @@ const CustomerChangePassword: React.FC<CustomerChangePasswordProps> = ({
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 focus:outline-none"
               >
-                {showConfirmPassword ? (
+                {!showConfirmPassword ? (
                   <img
                     src={
                       require("../../assets/icons/form_icons/form_visible.svg")

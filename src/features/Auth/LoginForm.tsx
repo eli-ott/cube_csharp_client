@@ -51,7 +51,7 @@ const LoginForm = () => {
           onTyping={setPassword}
         />
         <div className="w-full flex flex-col items-end justify-center">
-          <span className="text-sm md:text-md lg:text-lg cursor-pointer hover:underline mb-10">
+          <span onClick={()=>navigate("/forgot-password")} className="text-sm md:text-md lg:text-lg cursor-pointer hover:underline mb-10">
             Mot de passe oublié ?
           </span>
           <SubmitButton text="Se connecter" onSubmit={handleLogin} />

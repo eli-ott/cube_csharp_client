@@ -89,8 +89,25 @@ main {
   background-clip:border-box;
 
 }
+
+.styled-bg-home-carousel{
+  background-image: url("../images/home_page/carousel-bg.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-clip:border-box;
+}
+
+
+
 @media screen and (max-width: 768px) {
   .styled-bg {
   background-image: url("../images/auth_pages/background_mobile.svg");
   }
+
+  .styled-bg-home-carousel{
+    background-image: url("../images/home_page/carousel-bg-mobile.svg");
+
+  }
+
 }
