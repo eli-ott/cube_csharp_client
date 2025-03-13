@@ -1,3 +1,4 @@
+import { ICustomer } from "./customerModel";
 import { IProduct } from "./productModel";
 
 
@@ -22,7 +23,7 @@ export interface IOrder {
     deletionTime: string;
     updateTime: string;
     creationTime: string;
-    customer: string;
+    customer: ICustomer;
     status: IStatus;
     lines: IOrderLine[];
 }

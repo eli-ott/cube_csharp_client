@@ -11,15 +11,14 @@ interface INavMenu {
 const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
   const NavLayout = [
     { icon: "home", text: "Accueil", destination: "/" },
-    { icon: "products", text: "Tous nos produits", destination: "/" },
-    { icon: "discount", text: "Nos promotions", destination: "/" },
+    { icon: "products", text: "Tous nos produits", destination: "/search" },
     { icon: "", text: "separator", destination: "" },
     { icon: "contact", text: "Service client", destination: "/after-sales-service" },
     { icon: "who", text: "Qui sommes-nous ?", destination: "/about" },
     { icon: "", text: "separator", destination: "" },
-    { icon: "package", text: "Mes commandes", destination: "/" },
+    { icon: "package", text: "Mes commandes", destination: "/orders" },
     { icon: "cart", text: "Mon panier", destination: "/cart" },
-    { icon: "account", text: "Mon compte", destination: "/" },
+    { icon: "account", text: "Mon compte", destination: "/profile" },
     { icon: "", text: "separator", destination: "" },
     { icon: "", text: "Mentions légales", destination: "/legal-notices" },
     { icon: "", text: "Conditions Générales de Vente", destination: "/general-terms" },
