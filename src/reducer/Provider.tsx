@@ -3,16 +3,19 @@ import { AuthProvider } from "../hooks/AuthContext";
 import { UserProvider } from "../hooks/CustomerContext";
 import { CartProvider } from "../hooks/CartContext";
 import { ToastContainer } from "react-toastify";
+import { ProductProvider } from "../hooks/HomeCarouselContext";
 
 const Provider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthProvider>
-      <UserProvider>
-        <CartProvider>
-          {children}
-          <ToastContainer position="bottom-right" autoClose={2500} />
-        </CartProvider>
-      </UserProvider>
+      <ProductProvider>
+        <UserProvider>
+          <CartProvider>
+            {children}
+            <ToastContainer position="bottom-right" autoClose={2500} />
+          </CartProvider>
+        </UserProvider>
+      </ProductProvider>
     </AuthProvider>
   );
 };
