@@ -24,13 +24,15 @@ const CartItem: React.FC<ICartItem> = ({
 
   const [itemData] = useState({
     productName: product?.name ?? "Produit inconnu",
-    price: product?.unitPrice ?? product?.boxPrice ?? "0",
+    price: product?.unitPrice ?? product?.boxPrice ?? 0,
     discount: product?.discount?.value,
     isAside: cartline?.isSetAside,
     quantity: cartline?.quantity ?? 1,
     imageSrc: product?.images?.[0]?.imageUrl ?? Placeholder,
     addedAt: cartline?.creationTime ? new Date(cartline?.creationTime).toLocaleDateString() : "00/00/0000",
   });
+
+  const discountedPrice = itemData.price * (1 - (itemData.discount ?? 0) / 100);
 
   return (
     <div className="bg-[#EEE7C7]/75 rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-start gap-4 shadow-lg max-w-3xl mx-auto w-full">
@@ -57,7 +59,7 @@ const CartItem: React.FC<ICartItem> = ({
                   {itemData.price}€
                 </span>
                 <span className="text-[#A63E36] font-bold text-lg">
-                  {itemData.discount}€
+                  {discountedPrice}€
                 </span>
               </div>
             ) : (
