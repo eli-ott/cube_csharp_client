@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import placeholder from "../../assets/images/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { IOrder } from "../../models/orderModel";
+import { ISupplier } from "../../models/supplierModel";
 
 const OrderItem = ({ orderLine }: { orderLine: IOrder }) => {
   const navigate = useNavigate();
   const [total, setTotal] = React.useState<number>(0);
   const [nItems, setNItems] = React.useState<number>(0);
+
+  // État pour le pop-up
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [supplier, setSupplier] = useState<ISupplier |null>(null);
 
   useEffect(() => {
     const determinateTotal = () => {
@@ -30,8 +36,31 @@ const OrderItem = ({ orderLine }: { orderLine: IOrder }) => {
       setTotal(total);
       setNItems(orderLine.lines.length - 1);
     };
+
+    // Récupérer le fournisseur à partir de la première ligne
+    if (orderLine.lines.length > 0) {
+      setSupplier(orderLine.lines[0].product.supplier);
+    }
+
     determinateTotal();
   }, [orderLine]);
+
+  // Ouvrir le pop-up
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Fermer le pop-up
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Gérer l'envoi du message
+  const handleSendMessage = () => {
+    // Ici tu peux ajouter une logique pour envoyer le message
+    console.log("Message envoyé:", message);
+    closeModal(); // Ferme le pop-up après l'envoi
+  };
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
@@ -60,7 +89,10 @@ const OrderItem = ({ orderLine }: { orderLine: IOrder }) => {
       </div>
 
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <button className="bg-[#6A1B1A] text-white py-2 px-4 rounded hover:bg-opacity-90 transition">
+        <button
+          onClick={openModal}
+          className="bg-[#6A1B1A] text-white py-2 px-4 rounded hover:bg-opacity-90 transition"
+        >
           Contacter le fournisseur
         </button>
         <button className="bg-[#6A1B1A] text-white py-2 px-4 rounded hover:bg-opacity-90 transition">
@@ -73,6 +105,39 @@ const OrderItem = ({ orderLine }: { orderLine: IOrder }) => {
           Détails de la commande
         </button>
       </div>
+
+      {/* Pop-up de contact */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 className="text-xl font-semibold text-center mb-4">Contacter le fournisseur</h3>
+            
+            {/* Informations sur le fournisseur */}
+            {supplier && (
+              <div className="mb-4">
+                <p className="font-semibold text-lg">Fournisseur :</p>
+                <p>{supplier.firstName} {supplier.lastName}</p>
+                <p>{supplier.phone}</p>
+                <p>{supplier.email}</p>
+              </div>
+            )}
+            <div className="mt-4 flex justify-end gap-4">
+              <button
+                onClick={closeModal}
+                className="bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400 transition"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleSendMessage}
+                className="bg-[#6A1B1A] text-white py-2 px-4 rounded hover:bg-opacity-90 transition"
+              >
+                Envoyer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
