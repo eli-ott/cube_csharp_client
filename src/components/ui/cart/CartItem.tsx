@@ -35,7 +35,7 @@ const CartItem: React.FC<ICartItem> = ({
   const discountedPrice = itemData.price * (1 - (itemData.discount ?? 0) / 100);
 
   return (
-    <div className="bg-[#EEE7C7]/75 rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-start gap-4 shadow-lg max-w-3xl mx-auto w-full">
+    <div className="bg-[#EEE7C7]/75 rounded-xl relative p-4 md:p-6 flex flex-col md:flex-row items-start gap-4 shadow-lg max-w-3xl mx-auto w-full">
       {/* Image du produit */}
       <button
         onClick={goToProduct}
