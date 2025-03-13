@@ -40,7 +40,7 @@ const CustomerProfile: React.FC = () => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
-  const [isLoading, setIsLoading] = useState<boolean>(true); // État de chargement
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { user, setUser } = useUser();
 
   const handleEditUserAddress = async (newAddress: IUserAddress) => {
@@ -103,7 +103,7 @@ const CustomerProfile: React.FC = () => {
         complement: user.address.complement || "",
       });
 
-      setIsLoading(false); // Données chargées
+      setIsLoading(false);
     }
   }, [user]);
 

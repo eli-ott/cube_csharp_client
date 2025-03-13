@@ -6,6 +6,11 @@ import {
 } from "../models/authentificationModel";
 import { API_KEY, BASE_URL } from "../utils/env";
 
+const headers: HeadersInit = {
+  "Content-Type": "application/json",
+  "x-api-key": API_KEY,
+};
+
 
 export const register = async ({
   lastName,
@@ -34,11 +39,6 @@ export const register = async ({
         complement: optionnalInfos,
       },
     };
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      "x-api-key": API_KEY,
-    };
-
     const response = await fetch(`${BASE_URL}/customers/register`, {
       method: "POST",
       headers: headers,
@@ -55,10 +55,6 @@ export const register = async ({
 
 export const login = async ({ email, password }: ILogin): Promise<boolean> => {
   try {
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      "x-api-key": API_KEY,
-    };
 
     const response = await fetch(`${BASE_URL}/customers/login`, {
       method: "POST",
@@ -91,10 +87,6 @@ export const confirmAccount = async ({
   guid,
 }: IConfirmAccount): Promise<boolean> => {
   try {
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      "x-api-key": API_KEY,
-    };
     const response = await fetch(
       `${BASE_URL}/customers/confirm-registration/${email}/${guid}`,
       {
@@ -109,6 +101,40 @@ export const confirmAccount = async ({
     return false;
   }
 };
+
+export const sendResetPasswordMail = async (email: string): Promise<boolean> => {
+  try {
+    const response = await fetch(`${BASE_URL}/customers/request-password-reset`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({email:email})
+      });
+
+    if (!response.ok) throw new Error("Erreur lors de la demande.");
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+export const validatePasswordReset = async (guid : string, newPassword : string): Promise<boolean> => {
+  try {
+    const response = await fetch(`${BASE_URL}/customers/reset-password/${guid}`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({password:newPassword})
+      });
+
+    if (!response.ok) throw new Error("Erreur lors de la validation du nouveau mot de passe.");
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+} 
 
 
 export const getTokenFromCookie = (): any => {
@@ -126,7 +152,7 @@ export const getCustomerInfoFromToken = (): any => {
       id: parseInt(decodedToken.CustomerID),
       firstName: decodedToken.FirstName,
       email: decodedToken.Email,
-      cartId:decodedToken.CartId,
+      cartId: decodedToken.CartId,
     };
   }
   return null;

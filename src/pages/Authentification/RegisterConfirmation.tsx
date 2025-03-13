@@ -20,7 +20,7 @@ const RegisterConfirmation = () => {
 
           if (response) {
             notify("Une petite connexion et on sera bon, accrochez-vous !", "success");
-            navigate("/");
+            navigate("/login");
           } else {
             notify("Une erreur est survenue", "error");
           }
