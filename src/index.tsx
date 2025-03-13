@@ -13,13 +13,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <CartProvider>
+    <AuthProvider>
       <UserProvider>
-        <AuthProvider>
+        <CartProvider>
           <App />
           <ToastContainer position="bottom-right" autoClose={2500} />
-        </AuthProvider>
+        </CartProvider>
       </UserProvider>
-    </CartProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
