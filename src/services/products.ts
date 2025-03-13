@@ -53,6 +53,34 @@ const getProducts = async (
   }
 };
 
+const getProductById = async (productId: number): Promise<IProduct | null> => {
+  try {
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+      "x-api-key": API_KEY,
+    };
+
+    const url = new URL(`${BASE_URL}/products/${productId}`);
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers,
+    });
+
+    if (!response.ok)
+      throw new Error("Erreur lors de la récupération du produit");
+
+    return await response.json();
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error);
+    } else {
+      console.error("Une erreur inconnue est survenue");
+    }
+    return null;
+  }
+};
+
 interface IFamilyQuery {
   page?: number;
   search?: string;
@@ -138,4 +166,4 @@ const addProductToCart = async ({ productId, quantity }: IAddToCart) => {
   }
 };
 
-export { getProducts, getFamilies, addProductToCart };
+export { getProducts, getProductById, getFamilies, addProductToCart };

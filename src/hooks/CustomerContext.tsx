@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { getCustomerInfos } from "../services/customer";
 import { toast } from "react-toastify";
 import { ICustomer } from "../models/customerModel";
+import { getTokenFromCookie } from "../services/authentification";
+import { useAuth } from "./AuthContext";
 
 interface UserContextType {
   user: ICustomer | null;
@@ -12,6 +14,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: React.PropsWithChildren) => {
   const [user, setUser] = useState<ICustomer | null>(null);
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -19,12 +22,15 @@ export const UserProvider = ({ children }: React.PropsWithChildren) => {
         const userInfo = await getCustomerInfos();
         setUser(userInfo);
       } catch (error) {
-        toast.error("Erreur lors de la récupération des informations utilisateur.");
+        toast.error(
+          "Erreur lors de la récupération des informations utilisateur."
+        );
       }
     };
-
-    fetchUser();
-  }, []);
+    if (getTokenFromCookie()) {
+      fetchUser();
+    }
+  }, [isLoggedIn]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

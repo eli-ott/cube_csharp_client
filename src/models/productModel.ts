@@ -9,6 +9,7 @@ export interface IProduct {
     name: string;
     year: string;
     producerName: string;
+    description: string;
     isBio: boolean;
     unitPrice?: number;
     boxPrice?: number;

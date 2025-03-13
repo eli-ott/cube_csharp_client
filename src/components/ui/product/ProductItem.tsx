@@ -42,7 +42,9 @@ const ProductItem = ({ product }: { product: IProduct }) => {
       <div className="flex items-center space-x-1 text-sm my-1">
         <ProductRating reviews={reviews} />
         {reviews?.length ? (
-          <span className="text-xs text-gray-600">({reviews.length} avis)</span>
+          <span className="text-xs text-gray-600">
+            ({reviews.length} avis)
+          </span>
         ) : null}
       </div>
 
@@ -57,7 +59,7 @@ const ProductItem = ({ product }: { product: IProduct }) => {
         {/* Price and buttons positionned at the end */}
         <div className="flex flex-col gap-1 mt-2">
           <ProductPrice price={unitPrice ?? 0} discount={discount} />
-          <ProductDetailButton />
+          <ProductDetailButton productID={product.productId} />
           <AddToCartButton
             productId={product.productId}
             setIsLoading={setIsLoading}
