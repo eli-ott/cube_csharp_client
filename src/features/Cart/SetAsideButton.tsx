@@ -4,9 +4,11 @@ import { toast } from "react-toastify";
 import ItemStateLoader from "../../components/ui/ItemStateLoader";
 
 const SetAsideButton = ({
+  setAside,
   productId,
   isAside,
 }: {
+  setAside: ()=>void;
   productId: number | undefined;
   isAside: boolean | undefined;
 }) => {
@@ -16,6 +18,7 @@ const SetAsideButton = ({
   const setAsideProduct = async () => {
     setIsloading(true);
     const success = await toggleSetAsideItem(productId ?? 1);
+    setAside();
     if (success) {
       setIsAsideLocal(!isAsideLocal);
     } else {
