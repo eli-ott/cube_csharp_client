@@ -1,3 +1,4 @@
+import CheckoutStatusAlert from '../../components/ui/checkout/CheckoutStatusAlert';
 import CarouselHome from '../../components/ui/home/CarouselHome';
 import HomeSection from '../../components/ui/home/HomeInfoSection';
 import TopAlert from '../../components/ui/home/TopAlert';
@@ -8,6 +9,7 @@ const Home = () => {
     const {products} = useProducts();
     return (
         <main>
+            <CheckoutStatusAlert />
             <TopAlert text={text}/>
             <CarouselHome products={products} />
             <HomeSection/>
