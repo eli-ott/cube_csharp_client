@@ -4,6 +4,7 @@ import { UserProvider } from "../hooks/CustomerContext";
 import { CartProvider } from "../hooks/CartContext";
 import { ToastContainer } from "react-toastify";
 import { ProductProvider } from "../hooks/HomeCarouselContext";
+import { OrderProvider } from "../hooks/OrderContext";
 
 const Provider = ({ children }: { children: ReactNode }) => {
   return (
@@ -11,8 +12,10 @@ const Provider = ({ children }: { children: ReactNode }) => {
       <ProductProvider>
         <UserProvider>
           <CartProvider>
-            {children}
-            <ToastContainer position="bottom-right" autoClose={2500} />
+            <OrderProvider>
+              {children}
+              <ToastContainer position="bottom-right" autoClose={2500} />
+            </OrderProvider>
           </CartProvider>
         </UserProvider>
       </ProductProvider>

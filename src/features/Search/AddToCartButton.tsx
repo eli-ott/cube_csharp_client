@@ -1,24 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/AuthContext";
-import { addProductToCart } from "../../services/products";
+import {  getCustomerCart } from "../../services/cart"; // Ajout de getCustomerCart
 import { toast } from "react-toastify";
 import { useCart } from "../../hooks/CartContext";
+import { IProduct } from "../../models/productModel";
+import { addProductToCart } from "../../services/products";
 
 interface IAddToCartButton {
-  productId: number;
+  product: IProduct;
   setIsLoading: (value: boolean) => void;
 }
 
-const AddToCartButton: React.FC<IAddToCartButton> = ({
-  productId,
-  setIsLoading,
-}) => {
+const AddToCartButton: React.FC<IAddToCartButton> = ({ product, setIsLoading }) => {
   const { isLoggedIn } = useAuth();
-  const {setCounter,counter} = useCart();
+  const { setCounter, setCartLines } = useCart(); // Ajout de setCartLines
   const navigate = useNavigate();
 
   const onClickAdding = async () => {
     setIsLoading(true);
+
     if (!isLoggedIn) {
       setIsLoading(false);
       navigate("/login");
@@ -26,23 +26,32 @@ const AddToCartButton: React.FC<IAddToCartButton> = ({
       return;
     }
 
-    const quantity: number = 1;
-    const response = await addProductToCart({ productId, quantity });
+    try {
+      const response = await addProductToCart({ productId: product.productId, quantity: 1 });
 
-    if (response.success) {
-      setCounter(counter ? counter + 1:1);
-      toast.success("Ajouté au panier.");
-    } else {
-      toast.error(response.message);
+      if (response.success) {
+        // Recharger le panier immédiatement après ajout
+        const updatedCart = await getCustomerCart();
+        if (updatedCart) {
+          setCartLines(updatedCart.cartLines);
+          setCounter(updatedCart.cartLines.length);
+        }
+
+        toast.success("Ajouté au panier.");
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      toast.error("Erreur lors de l'ajout au panier.");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-    return;
   };
 
   return (
     <div className="product-detail-button">
       <button
-        onClick={() => onClickAdding()}
+        onClick={onClickAdding}
         className="bg-[#A63E36] w-full text-white text-xs font-bold py-2 px-4 rounded-md cursor-pointer"
       >
         Ajouter au panier

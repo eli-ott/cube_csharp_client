@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
             <button onClick={isLoggedIn ? () => navigate("/profile") : () => navigate("/login")} className="cursor-pointer">
               Mon Espace Client
             </button>
-            <button onClick={isLoggedIn ? () => navigate("/") : () => navigate("/login")} className="cursor-pointer">
+            <button onClick={isLoggedIn ? () => navigate("/orders") : () => navigate("/login")} className="cursor-pointer">
               Mes commandes
             </button>
           </div>

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "./IconButton";
 import NavButton from "./NavButton";
 import { useAuth } from "../../../hooks/AuthContext";
+import { logOut } from "../../../services/authentification";
 
 interface INavMenu {
   isOpenedMenu: boolean;
@@ -11,19 +12,31 @@ interface INavMenu {
 const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
   const NavLayout = [
     { icon: "home", text: "Accueil", destination: "/" },
-    { icon: "products", text: "Tous nos produits", destination: "/" },
-    { icon: "discount", text: "Nos promotions", destination: "/" },
+    { icon: "products", text: "Tous nos produits", destination: "/search" },
     { icon: "", text: "separator", destination: "" },
-    { icon: "contact", text: "Service client", destination: "/after-sales-service" },
+    {
+      icon: "contact",
+      text: "Service client",
+      destination: "/after-sales-service",
+    },
     { icon: "who", text: "Qui sommes-nous ?", destination: "/about" },
     { icon: "", text: "separator", destination: "" },
-    { icon: "package", text: "Mes commandes", destination: "/" },
+    { icon: "package", text: "Mes commandes", destination: "/orders" },
     { icon: "cart", text: "Mon panier", destination: "/cart" },
-    { icon: "account", text: "Mon compte", destination: "/" },
+    { icon: "account", text: "Mon compte", destination: "/profile" },
     { icon: "", text: "separator", destination: "" },
     { icon: "", text: "Mentions légales", destination: "/legal-notices" },
-    { icon: "", text: "Conditions Générales de Vente", destination: "/general-terms" },
+    {
+      icon: "",
+      text: "Conditions Générales de Vente",
+      destination: "/general-terms",
+    },
   ];
+
+  const handleLogOut = (): void => {
+    navigate("/");
+    logOut();
+  };
 
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
@@ -39,13 +52,13 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
           ? "bg-black/50 pointer-events-auto"
           : "bg-transparent pointer-events-none"
       }`}
-      onClick={handleClosing} 
+      onClick={handleClosing}
     >
       <div
         className={`flex flex-col relative items-center justify-start w-full sm:w-3/4 md:w-2/4 lg:w-1/4 h-full bg-[#F8F4E3] transform ${
           isOpenedMenu ? "translate-x-0" : "-translate-x-[101%]"
         } transition-transform duration-1000`}
-        onClick={(e) => e.stopPropagation()} 
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between w-full h-16 bg-[#6A1B1A]">
@@ -74,7 +87,15 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
               setIsOpenedMenu={setIsOpenedMenu}
             />
           ))}
-          {!isLoggedIn ? (
+          {isLoggedIn ? (
+            <button
+              type="button"
+              onClick={handleLogOut}
+              className="absolute bottom-0 text-white h-10 cursor-pointer w-full bg-[#A63E36] md:hover:bg-[#88342D] transition-colors duration-1000"
+            >
+              Se déconnecter
+            </button>
+          ) : (
             <button
               type="button"
               onClick={() => navigate("/login")}
@@ -82,7 +103,7 @@ const NavMenu: React.FC<INavMenu> = ({ isOpenedMenu, setIsOpenedMenu }) => {
             >
               Se connecter
             </button>
-          ) : null}
+          )}
         </div>
       </div>
     </div>
