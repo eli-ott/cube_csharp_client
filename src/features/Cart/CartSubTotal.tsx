@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { ICartLine } from "../../models/cartModel";
 import { useCart } from "../../hooks/CartContext";
+import { useNavigate } from "react-router-dom";
+import { determineSubTotal } from "../../utils/prices";
 
 const CartSubTotal = () => {
   const { cartLines } = useCart();
+  const navigate = useNavigate();
   const [subTotalRegular, setSubTotalRegular] = useState<number>(0);
   const [subTotalAside, setSubTotalAside] = useState<number>(0);
-
-  const determinePriceAfterDiscount = (price: number, discount: number) => {
-    return price - (price * discount) / 100;
-  };
-
-  const determineSubTotal = (lines: ICartLine[]) => {
-    return lines.reduce((total, line) => {
-      const basePrice = line.product.unitPrice ?? line.product.boxPrice ?? 0;
-      const finalPrice = line.product.discount
-        ? determinePriceAfterDiscount(basePrice, line.product.discount.value)
-        : basePrice;
-      return total + finalPrice * line.quantity;
-    }, 0);
-  };
 
   useEffect(() => {
     if (cartLines) {
@@ -29,6 +17,7 @@ const CartSubTotal = () => {
       setSubTotalAside(determineSubTotal(asideItems));
       setSubTotalRegular(determineSubTotal(regularItems));
     }
+    // eslint-disable-next-line 
   }, [cartLines, cartLines?.map(line => line.quantity).join(",")]);
 
   return (
@@ -47,6 +36,7 @@ const CartSubTotal = () => {
 
       <button
         className="w-full px-6 py-3 text-white text-sm md:text-base lg:text-lg font-medium bg-[#A33E32] rounded-lg shadow-md hover:bg-[#8C3329] transition-all duration-300 cursor-pointer"
+        onClick={() => navigate("/checkout")}
       >
         Passer la commande
       </button>

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import CartSubTotal from "./CartSubTotal";
 
 const CartLineTable: React.FC = () => {
-  const { cartLines, setCartLines, counter, setCounter } = useCart();
+  const { cartLines, setCartLines, setCounter } = useCart();
   const [isLoadingRemove, setIsLoadingRemove] = useState<boolean>(false);
   const navigate = useNavigate();
 

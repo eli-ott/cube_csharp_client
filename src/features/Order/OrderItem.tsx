@@ -11,7 +11,7 @@ const OrderItem = ({ orderLine }: { orderLine: IOrder }) => {
 
   // État pour le pop-up
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message] = useState('');
   const [supplier, setSupplier] = useState<ISupplier |null>(null);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const OrderItem = ({ orderLine }: { orderLine: IOrder }) => {
           className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-cover rounded-md"
         >
           <img
-            src={orderLine.lines[0].product?.images[0]?.imageUrl ?? placeholder}
+            src={orderLine.lines[0]?.product?.images[0]?.imageUrl ?? placeholder}
             alt="Commande"
             className="w-full h-full object-cover rounded-md"
           />
