@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { changeQuantity } from "../../services/cart";
+import { useCart } from "../../hooks/CartContext";
 
 const QuantityButtons = ({
   productId,
@@ -8,15 +9,24 @@ const QuantityButtons = ({
   productId: number | undefined;
   quantity: number;
 }) => {
+  const { setCartLines, cartLines } = useCart(); 
   const [localQuantity, setLocalQuantity] = useState<number>(quantity);
 
   const updateQuantity = async (param: string) => {
-    if (param === "minus") {
-      if (await changeQuantity(productId ? productId : 1, localQuantity - 1))
-        setLocalQuantity(localQuantity - 1);
-    } else if (param === "plus") {
-      if (await changeQuantity(productId ? productId : 1, localQuantity + 1))
-        setLocalQuantity(localQuantity + 1);
+    let newQuantity = param === "minus" ? localQuantity - 1 : localQuantity + 1;
+
+    if (await changeQuantity(productId ? productId : 1, newQuantity)) {
+      setLocalQuantity(newQuantity);
+
+      setCartLines((prevCartLines) =>
+        prevCartLines
+          ? prevCartLines.map((line) =>
+              line.product.productId === productId
+                ? { ...line, quantity: newQuantity }
+                : line
+            )
+          : []
+      );
     }
   };
 
