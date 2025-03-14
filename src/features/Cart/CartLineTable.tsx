@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CartItem from "../../components/ui/cart/CartItem";
 import { deleteCartLine } from "../../services/cart";
 import CartEmpty from "../../components/ui/cart/CartEmpty";
@@ -54,7 +54,8 @@ const CartLineTable: React.FC = () => {
 
   return (
     <>
-      <CartSubTotal />
+      {/* Afficher le sous-total uniquement si le panier n'est pas vide */}
+      {cartLines && cartLines.length > 0 && <CartSubTotal />}
 
       <div className="w-8/10 p-4 box-border min-h-80 overflow-y-auto overflow-x-hidden flex flex-col gap-4">
         {cartLines === null ? (
@@ -75,7 +76,7 @@ const CartLineTable: React.FC = () => {
         )}
       </div>
 
-      {/* Affichage du titre "Articles mis de côté" même si aucun article n'est mis de côté */}
+      {/* Affichage du titre "Articles mis de côté" uniquement si le panier n'est pas vide */}
       {cartLines && cartLines.length > 0 && (
         <h1 className="text-2xl font-bold text-center text-[#333333] mt-4">
           Articles mis de côté

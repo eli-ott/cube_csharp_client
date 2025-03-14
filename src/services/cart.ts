@@ -3,8 +3,9 @@ import { ICart } from "../models/cartModel";
 import { getCustomerInfoFromToken, getTokenFromCookie } from "./authentification";
 import { API_KEY, BASE_URL } from "../utils/env";
 
-export const getCustomerCart = async (customerId: number): Promise<ICart | null> => {
+export const getCustomerCart = async (): Promise<ICart | null> => {
   try {
+    const decodedToken = getCustomerInfoFromToken();
     const token = getTokenFromCookie();
     const headers: HeadersInit = {
       "Content-Type": "application/json",
@@ -12,7 +13,7 @@ export const getCustomerCart = async (customerId: number): Promise<ICart | null>
       "x-api-key": API_KEY,
     };
 
-    const response = await fetch(`${BASE_URL}/customers/${customerId}/get-cart`, {
+    const response = await fetch(`${BASE_URL}/customers/${decodedToken.id}/get-cart`, {
       method: "GET",
       headers: headers,
 

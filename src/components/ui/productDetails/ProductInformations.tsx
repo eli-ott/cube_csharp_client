@@ -67,7 +67,7 @@ const ProductInformations = ({
           )}
           <div className="mt-4 w-1/2 md:2/3 lg:w-1/3"> 
             <AddToCartButton
-              productId={product.productId}
+              product={product}
               setIsLoading={setLoading}
             />
           </div>

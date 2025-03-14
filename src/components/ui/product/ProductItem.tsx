@@ -61,7 +61,7 @@ const ProductItem = ({ product }: { product: IProduct }) => {
           <ProductPrice price={unitPrice ?? 0} discount={discount} />
           <ProductDetailButton productID={product.productId} />
           <AddToCartButton
-            productId={product.productId}
+          product={product}
             setIsLoading={setIsLoading}
           />
         </div>
