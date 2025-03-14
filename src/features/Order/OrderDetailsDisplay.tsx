@@ -3,6 +3,7 @@ import { IOrder } from "../../models/orderModel";
 import { getOrderById } from "../../services/order";
 import { useNavigate, useParams } from "react-router-dom";
 import { notify } from "../../utils/notify";
+import placeholder from '../../assets/images/placeholder.png';
 
 const OrderDetailsDisplay: React.FC = () => {
   const [order, setOrder] = useState<IOrder | null>(null);
@@ -88,7 +89,7 @@ const OrderDetailsDisplay: React.FC = () => {
             const imageUrl =
               product.images && product.images.length > 0
                 ? product.images[0].imageUrl
-                : "https://via.placeholder.com/150";
+                : placeholder;
 
             return (
               <div
