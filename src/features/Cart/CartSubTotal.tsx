@@ -29,6 +29,7 @@ const CartSubTotal = () => {
       setSubTotalAside(determineSubTotal(asideItems));
       setSubTotalRegular(determineSubTotal(regularItems));
     }
+    // eslint-disable-next-line 
   }, [cartLines, cartLines?.map(line => line.quantity).join(",")]);
 
   return (

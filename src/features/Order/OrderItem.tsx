@@ -11,7 +11,7 @@ const OrderItem = ({ orderLine }: { orderLine: IOrder }) => {
 
   // État pour le pop-up
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message] = useState('');
   const [supplier, setSupplier] = useState<ISupplier |null>(null);
 
   useEffect(() => {

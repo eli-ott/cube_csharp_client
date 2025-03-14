@@ -9,7 +9,7 @@ const QuantityButtons = ({
   productId: number | undefined;
   quantity: number;
 }) => {
-  const { setCartLines, cartLines } = useCart(); 
+  const { setCartLines } = useCart(); 
   const [localQuantity, setLocalQuantity] = useState<number>(quantity);
 
   const updateQuantity = async (param: string) => {

@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getCustomerInfoFromToken } from "../services/authentification";
 import { getCustomerCart } from "../services/cart";
 import { toast } from "react-toastify";
 import { useAuth } from "./AuthContext";
