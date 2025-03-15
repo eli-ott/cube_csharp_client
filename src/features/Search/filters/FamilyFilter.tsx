@@ -37,9 +37,6 @@ const FamilyFilter = () => {
         setSelectedFamily(family);
         setSearchTerm(family.name);
       }
-    } else {
-      setSelectedFamily(null);
-      setSearchTerm("");
     }
   }, [families, searchParams]);
 
